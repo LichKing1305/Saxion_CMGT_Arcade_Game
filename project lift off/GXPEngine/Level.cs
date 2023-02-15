@@ -12,7 +12,6 @@ class Level : GameObject
     public Level(string filename)
     {
         loader = new TiledLoader(filename);
-        LoadLevel(map);
         createlevel();
     }
 
@@ -53,9 +52,6 @@ class Level : GameObject
             power1.Pickup(); // Replace with your actual object-spawning code
         }*/
     }
-    void LoadLevel(string filename)
-    {
-        AddChild(new Map(filename));
-    }
+    
 }
 
