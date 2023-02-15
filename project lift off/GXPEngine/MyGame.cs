@@ -4,7 +4,7 @@ using System.Drawing;
 
 
 public class MyGame : Game {
-	Bear bear1;
+	Bear bear;
 	Claw claw;
 	HUD hud;
 	Bear2 bear2;
@@ -33,7 +33,7 @@ public class MyGame : Game {
 		AddChild(bear);*/
 		 claw= new Claw();
 		AddChild(claw);
-		hud = new HUD(bear1);
+		hud = new HUD(bear);
 		AddChild(hud);
 		bear2= new Bear2();
 		power1 = new Powerup();
