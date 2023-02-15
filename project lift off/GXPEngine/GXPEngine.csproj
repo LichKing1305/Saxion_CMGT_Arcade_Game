@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Bear.cs" />
     <Compile Include="Bear2.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Powerup.cs" />
     <Compile Include="claw.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />

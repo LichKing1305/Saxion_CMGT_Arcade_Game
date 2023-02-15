@@ -10,7 +10,7 @@ namespace GXPEngine
     public class HUD : Canvas
     {
         private Bear _bear;
-        public HUD(Bear bear) : base(128, 64, false)
+        public HUD (Bear bear) : base(128, 64, false)
         {
             _bear = bear;
         }

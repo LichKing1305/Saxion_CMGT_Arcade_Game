@@ -30,7 +30,7 @@ public class Bear : AnimationSprite
         }
     }*/
 
-    public Bear(TiledObject obj= null) : base("square.png", 1, 1)
+    public Bear(TiledObject obj = null) : base("square.png", 1, 1)
     {
         _score = 0;
         timer = new Timer(TimerCallback, null, 0, 250);
