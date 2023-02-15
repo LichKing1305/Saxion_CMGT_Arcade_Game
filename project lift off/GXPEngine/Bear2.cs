@@ -1,5 +1,7 @@
 ﻿using GXPEngine;
 using System;
+using System.Threading;
+using TiledMapParser;
 
 public class Bear2 : AnimationSprite
 {
