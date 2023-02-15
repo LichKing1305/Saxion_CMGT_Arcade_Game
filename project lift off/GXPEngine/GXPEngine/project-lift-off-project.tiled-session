@@ -1,0 +1,50 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "D:/CMGT/game programming/project lift off/GXPEngine/bin/Debug/levlemap.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "D:/CMGT/game programming/GXPEngine2023/GXPEngine/bin/Debug/level1map.tmx": {
+            "expandedObjectLayers": [
+                7
+            ],
+            "scale": 1.4269791666666667,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 480.38542959340094,
+                "y": 318.8553909044456
+            }
+        },
+        "D:/CMGT/game programming/GXPEngine2023/GXPEngine/bin/Debug/level1map.tmx#Tile-Atlas 16x16": {
+            "scaleInDock": 1
+        },
+        "D:/CMGT/game programming/project lift off/GXPEngine/bin/Debug/levlemap.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.7134895833333333,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 960.7708591868019,
+                "y": 542.4045550770129
+            }
+        }
+    },
+    "map.height": 17,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "openFiles": [
+        "D:/CMGT/game programming/project lift off/GXPEngine/bin/Debug/levlemap.tmx",
+        "D:/CMGT/game programming/GXPEngine2023/GXPEngine/bin/Debug/level1map.tmx"
+    ],
+    "project": "project-lift-off-project.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "D:/CMGT/game programming/GXPEngine2023/GXPEngine/bin/Debug/level1map.tmx",
+        "D:/CMGT/game programming/project lift off/GXPEngine/bin/Debug/levlemap.tmx"
+    ]
+}
