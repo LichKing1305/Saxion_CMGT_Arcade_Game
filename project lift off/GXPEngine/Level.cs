@@ -36,6 +36,8 @@ class Level : GameObject
 
     void Update()
     {
+
+
         //Console.WriteLine(bear2.Player2Switch);
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
