@@ -36,17 +36,12 @@ public class Bear : AnimationSprite
         timer = new Timer(TimerCallback, null, 0, 250);
     }
     
-    public int GetScore()
-    {
-        return _score;
-    }
-
     void Update()
     {
         XMovement();
         YMovement();
         Health();
-     //   Console.WriteLine(health);
+      //Console.WriteLine(health);
 
     }
 
@@ -90,12 +85,16 @@ public class Bear : AnimationSprite
             power.Pickup();
         }
     }
+    public int GetScore()
+    {
+        return _score;
+    }
     private void TimerCallback(Object o)
     {
         if (health > 0)
         {
             _score = _score + 1;
-            Console.WriteLine(_score);
+            //Console.WriteLine(_score);
         }
     }
     void SpawnNewPickup()
