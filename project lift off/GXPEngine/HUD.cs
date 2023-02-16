@@ -19,6 +19,7 @@ namespace GXPEngine
         {
             graphics.Clear(Color.Empty);
             graphics.DrawString("Score: " + _bear.GetScore(), SystemFonts.DefaultFont, Brushes.White, 0, 0);
+            
         }
     }
 }

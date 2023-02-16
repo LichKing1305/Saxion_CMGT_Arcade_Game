@@ -95,6 +95,7 @@ public class Bear : AnimationSprite
         if (health > 0)
         {
             _score = _score + 1;
+            Console.WriteLine(_score);
         }
     }
     void SpawnNewPickup()
