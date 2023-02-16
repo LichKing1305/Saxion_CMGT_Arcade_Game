@@ -7,69 +7,107 @@ public class Bear : AnimationSprite
 {
     Timer timer;
     /*----------floats---------*/
-    float initialDropSpeed = 0f;
-    float jumpSpeed = 4f;
-    float movementXSpeed = 1.5f;
-    float dropSpeed = 0.2f;
+    float initialDropSpeed = 0;
+    float jumpSpeed;
+    float movementXSpeed;
+    float dropSpeed;
 
     /*---------int---------*/
     int health = 1;
     int _score;
 
-   /* public Bear(string filename,int cols, int rows,TiledObject obj=null) : base("square.png", 1, 1)
+    public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
-        y = 600 - height;
+        y = game.height - height;
         _score = 0;
-        if (obj !=null)
+        if (obj != null)
         {
             timer = new Timer(TimerCallback, null, 0, 1500);
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
-            jumpSpeed = obj.GetFloatProperty("jumpSpeed", 4f);
+            jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
             movementXSpeed = obj.GetFloatProperty("movementXSpeed", 1.5f);
             health = obj.GetIntProperty("health", 1);
         }
-    }*/
+    }
 
     public Bear(TiledObject obj = null) : base("square.png", 1, 1)
     {
-        _score = 0;
-        timer = new Timer(TimerCallback, null, 0, 250);
+
     }
-    
+
+    public int GetScore()
+    {
+        return _score;
+    }
+
     void Update()
     {
         XMovement();
         YMovement();
         Health();
-      //Console.WriteLine(health);
+        //   Console.WriteLine(health);
+        // Console.WriteLine(jumpSpeed);
+        Shot();
 
     }
 
     void XMovement()
     {
-       
-        if (Input.GetKey(Key.D)) { Move(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.A)) { Move(-movementXSpeed, 0); }
+
+        if (Input.GetKey(Key.D)) { this.MoveUntilCollision(movementXSpeed, 0); }
+        else if (Input.GetKey(Key.A)) { MoveUntilCollision(-movementXSpeed, 0); }
 
     }
 
     void YMovement()
     {
-
+        float oldy = y;
+        //Console.WriteLine(initialDropSpeed);
         initialDropSpeed += dropSpeed;
-       
         y += initialDropSpeed;
-        if (y > 600 - height)
+
+        GameObject[] colied = GetCollisions();
+        for (int i = 0; i < colied.Length; i++)
         {
-            y = 600 - height;
-            initialDropSpeed = 0;
-          
-            if (Input.GetKey(Key.W)) { Move(0, initialDropSpeed -= jumpSpeed);/* Console.WriteLine(y);*/ }
+
+            if (colied[i] is Solid)
+            {
+                //Console.WriteLine("solid");
+                initialDropSpeed = 0;
+                y = oldy;
+                if (Input.GetKey(Key.W))
+                {
+                    this.Move(0, initialDropSpeed -= jumpSpeed);
+                }
+                /*  else if (Input.GetKey(Key.S))                         //-------------------needs work(bugFound)--------------------------
+                  {
+                      Move(0, initialDropSpeed += jumpSpeed);
+                  }*/
+
+
+
+            }
 
         }
 
 
     }
+
+    void Shot()
+    {
+
+        if (Input.GetKeyDown(Key.F))
+        {
+            Screw screw = new Screw();
+            screw.SetXY(x + (_mirrorX ? -1 : 1) * (width / 2), y);
+            parent.AddChild(screw);
+        }
+
+
+    }
+
+
+
     void Health()
     {
         if (health < 1) { Destroy(); }
@@ -77,35 +115,16 @@ public class Bear : AnimationSprite
     }
     void OnCollision(GameObject OtherThanBear)
     {
-
+        //  if (OtherThanBear is Solid) { MoveUntilCollision(0,0); Console.WriteLine("collde"); }
         if (OtherThanBear is Claw) { health--; /* Console.WriteLine("fff");*/ }
-        if (OtherThanBear is Powerup)
-        {
-            Powerup power = OtherThanBear as Powerup;
-            power.Pickup();
-        }
-    }
-    public int GetScore()
-    {
-        return _score;
+
     }
     private void TimerCallback(Object o)
     {
         if (health > 0)
         {
             _score = _score + 1;
-            //Console.WriteLine(_score);
         }
-    }
-    void SpawnNewPickup()
-    {
-        Powerup power = new Powerup();
-        int bearScore = GetScore();
-        if (bearScore % 100 == 0) // Check if the score is divisible by 100
-        {
-            power.Pickup(); // Replace with your actual object-spawning code
-        }
-
     }
 }
 

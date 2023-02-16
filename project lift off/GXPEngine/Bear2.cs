@@ -1,16 +1,19 @@
 ﻿using GXPEngine;
 using System;
-using System.Threading;
-using TiledMapParser;
 
 public class Bear2 : AnimationSprite
 {
-    float dropSpeed = 0f;
+    float initialDropSpeed;
+    float dropSpeed = 0.2f;
+    float movementXSpeed;
+    float jumpSpeed = 10f;
+    float moveSpeed = 1.5f;
+    float knockBack = 5f;
     int health = 1;
     public bool Player2Switch;
     public Bear2() : base("square2.png", 1, 1)
     {
-        y = 600 - height;
+        y = 300 - height;
         x = 300;
     }
     void Update()
@@ -19,41 +22,46 @@ public class Bear2 : AnimationSprite
         YMovement();
         Health();
         //  Console.WriteLine(health);
-       // PlayerDestroyed();
+        // PlayerDestroyed();
 
     }
     void XMovement()
     {
-        float movementXSpeed = 1.5f;
-        if (Input.GetKey(Key.L)) { Move(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.J)) { Move(-movementXSpeed, 0); }
+
+        if (Input.GetKey(Key.L)) { Move(movementXSpeed+moveSpeed, 0); }
+        else if (Input.GetKey(Key.J)) { Move(movementXSpeed-moveSpeed, 0); }
 
     }
 
     void YMovement()
     {
-
-        dropSpeed += 0.2f;
-        float jumpSpeed = 4f;
-        y += dropSpeed;
-        if (y > 600 - height)
+        float oldy = y;
+        initialDropSpeed += dropSpeed;
+        y += initialDropSpeed;
+        GameObject[] colied = GetCollisions();
+        for (int i = 0; i < colied.Length; i++)
         {
-            y = 600 - height;
-            dropSpeed = 0;
-            if (Input.GetKey(Key.I)) { Move(0, dropSpeed -= jumpSpeed); }
+            if (colied[i] is Solid)
+            {
+                initialDropSpeed = 0;
+                y = oldy;
+                if (Input.GetKey(Key.I))
+                {
+                    this.Move(0, initialDropSpeed -= jumpSpeed);
+                }
+            }
         }
-
-
     }
     void Health()
     {
-        if (health < 1) { Destroy(); }
+        if (health < 1) { Destroy(); Player2Switch = false; }
 
     }
     void OnCollision(GameObject OtherThanBear2)
     {
 
         if (OtherThanBear2 is Claw) { health--; /* Console.WriteLine("fff");*/ }
+        if (OtherThanBear2 is Screw) { moveSpeed = 0.5f; x += knockBack; y -= knockBack; Console.Write("speed slow down"); } else { }
 
     }
     void PlayerDestroyed()
