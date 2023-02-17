@@ -29,7 +29,7 @@ using TiledMapParser;
     }
     void OnCollision(GameObject notBullet)
     {
-        if (notBullet is Bear2) { this.LateDestroy(); }//bullet.Play(); }// Console.WriteLine("im hitting collision");  
+        if (notBullet is Bear2|| notBullet is Bear) { this.LateDestroy(); }//bullet.Play(); }// Console.WriteLine("im hitting collision");  
 
     }
 

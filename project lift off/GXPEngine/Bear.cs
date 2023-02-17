@@ -5,6 +5,7 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
+
     Timer timer;
     /*----------floats---------*/
     float initialDropSpeed = 0;
@@ -15,9 +16,9 @@ public class Bear : AnimationSprite
     /*---------int---------*/
     int health = 1;
     int _score;
-    int zero = 0;
-    const int coolDown = 2000;
-
+    /*-------bool----*/
+    bool frozeMovement = false;
+    /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
         y = game.height - height;
@@ -31,8 +32,7 @@ public class Bear : AnimationSprite
             health = obj.GetIntProperty("health", 1);
         }
     }
-
-    public Bear(TiledObject obj = null) : base("square.png", 1, 1)
+    public Bear() : base("square.png", 1,1)
     {
 
     }
@@ -46,90 +46,69 @@ public class Bear : AnimationSprite
     {
         XMovement();
         YMovement();
-        Health();
-        //   Console.WriteLine(health);
-        // Console.WriteLine(jumpSpeed);
+        Death();
         Shot();
-        timetest();
-
+        RecovorMovement();
     }
-
+    /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void XMovement()
     {
-
-        if (Input.GetKey(Key.D)) { this.Mirror(false,false); this.MoveUntilCollision(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.A)) {this.Mirror(true,false);MoveUntilCollision(-movementXSpeed, 0); }
-
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); }
+        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); }
     }
-
+    /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/
     void YMovement()
     {
         float oldy = y;
-        //Console.WriteLine(initialDropSpeed);
         initialDropSpeed += dropSpeed;
         y += initialDropSpeed;
-
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
-
             if (colied[i] is Solid || colied[i] is Bear2)
             {
-                //Console.WriteLine("solid");
                 initialDropSpeed = 0;
                 y = oldy;
                 if (Input.GetKey(Key.W))
                 {
                     this.Move(0, initialDropSpeed -= jumpSpeed);
                 }
-                /*  else if (Input.GetKey(Key.S))                         //-------------------needs work(bugFound)--------------------------
-                  {
-                      Move(0, initialDropSpeed += jumpSpeed);
-                  }*/
-
-
-
             }
-
         }
-
-
     }
-    void timetest() 
-    {
-         
-        Console.WriteLine(Time.deltaTime+":"+zero);
-        if (Input.GetKeyUp(Key.SPACE)) { zero = Time. ; }
-
-    }
-
+    /*------------------------- CODE FOR SHOTING PROJECTILE(S)--------------------------------------*/
     void Shot()
     {
-        // Console.WriteLine(); 
-       
         if (Input.GetKeyDown(Key.F))
         {
-            Screw screw = new Screw(_mirrorX ? -1:1);
-            screw.SetXY(x+(_mirrorX ? -3:1)*(width/2), y-(height/2));
+            Screw screw = new Screw(_mirrorX ? -1 : 1);
+            screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
         }
 
 
     }
-
-
-
-    void Health()
+    /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
+    void Death()
     {
         if (health < 1) { Destroy(); }
-
     }
+    /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)
     {
-        //  if (OtherThanBear is Solid) { MoveUntilCollision(0,0); Console.WriteLine("collde"); }
-        if (OtherThanBear is Claw) { health--; /* Console.WriteLine("fff");*/ }
-        if(OtherThanBear is Screw) { movementXSpeed = 0.5f; if (Time.time > coolDown)  { movementXSpeed=2.5f;  }  }
-
+        if (OtherThanBear is Claw) { health--; }
+        if (OtherThanBear is Screw)
+        {
+            frozeMovement = true;
+        }
+    }
+    void RecovorMovement()
+    {
+        if (frozeMovement == true)
+        {
+            Thread.Sleep(2000);
+            frozeMovement = false;
+        }
     }
     private void TimerCallback(Object o)
     {
