@@ -2,19 +2,16 @@
 using System;
 using TiledMapParser;
 
-public class Screw : AnimationSprite
+ class Screw : AnimationSprite
 {
-    float throwingSpeed=4f;
-    public Screw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
+    float throwingSpeed;
+  
+    public Screw(float vx) : base("screw.jpg", 1, 1) 
     {
-       if (obj != null)
-        {
-            throwingSpeed = obj.GetFloatProperty("throwingSpeed", 4f);
-        }
-
+        throwingSpeed = vx;
+       
+    
     }
-
-    public Screw() : base("screw.jpg", 1, 1) { }
     void Update()
     {
         x += throwingSpeed;

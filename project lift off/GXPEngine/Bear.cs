@@ -25,7 +25,7 @@ public class Bear : AnimationSprite
             timer = new Timer(TimerCallback, null, 0, 1500);
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
             jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
-            movementXSpeed = obj.GetFloatProperty("movementXSpeed", 1.5f);
+            movementXSpeed = obj.GetFloatProperty("movementXSpeed", 2.5f);
             health = obj.GetIntProperty("health", 1);
         }
     }
@@ -54,8 +54,8 @@ public class Bear : AnimationSprite
     void XMovement()
     {
 
-        if (Input.GetKey(Key.D)) { this.MoveUntilCollision(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.A)) { MoveUntilCollision(-movementXSpeed, 0); }
+        if (Input.GetKey(Key.D)) { this.Mirror(false,false); this.MoveUntilCollision(movementXSpeed, 0); }
+        else if (Input.GetKey(Key.A)) {this.Mirror(true,false);MoveUntilCollision(-movementXSpeed, 0); }
 
     }
 
@@ -70,7 +70,7 @@ public class Bear : AnimationSprite
         for (int i = 0; i < colied.Length; i++)
         {
 
-            if (colied[i] is Solid)
+            if (colied[i] is Solid || colied[i] is Bear2)
             {
                 //Console.WriteLine("solid");
                 initialDropSpeed = 0;
@@ -95,11 +95,11 @@ public class Bear : AnimationSprite
 
     void Shot()
     {
-
+        Console.WriteLine(height);
         if (Input.GetKeyDown(Key.F))
         {
-            Screw screw = new Screw();
-            screw.SetXY(x + (_mirrorX ? -1 : 1) * (width / 2), y);
+            Screw screw = new Screw(_mirrorX ? -10:10);
+            screw.SetXY(x+(_mirrorX ? -3:1)*(width/2), y-(height/2));
             parent.AddChild(screw);
         }
 
@@ -117,6 +117,7 @@ public class Bear : AnimationSprite
     {
         //  if (OtherThanBear is Solid) { MoveUntilCollision(0,0); Console.WriteLine("collde"); }
         if (OtherThanBear is Claw) { health--; /* Console.WriteLine("fff");*/ }
+        if(OtherThanBear is Screw) { movementXSpeed = 0.5f;  }
 
     }
     private void TimerCallback(Object o)

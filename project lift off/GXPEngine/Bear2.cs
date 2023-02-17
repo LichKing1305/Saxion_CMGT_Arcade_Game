@@ -5,9 +5,9 @@ public class Bear2 : AnimationSprite
 {
     float initialDropSpeed;
     float dropSpeed = 0.2f;
-    float movementXSpeed;
+   float movementXSpeed=1.5f;
     float jumpSpeed = 10f;
-    float moveSpeed = 1.5f;
+   // float moveSpeed = 1.5f;
     float knockBack = 5f;
     int health = 1;
     public bool Player2Switch;
@@ -28,8 +28,8 @@ public class Bear2 : AnimationSprite
     void XMovement()
     {
 
-        if (Input.GetKey(Key.L)) { Move(movementXSpeed+moveSpeed, 0); }
-        else if (Input.GetKey(Key.J)) { Move(movementXSpeed-moveSpeed, 0); }
+        if (Input.GetKey(Key.L)) { Move(movementXSpeed, 0); }
+        else if (Input.GetKey(Key.J)) { Move(-movementXSpeed, 0); }
 
     }
 
@@ -61,7 +61,7 @@ public class Bear2 : AnimationSprite
     {
 
         if (OtherThanBear2 is Claw) { health--; /* Console.WriteLine("fff");*/ }
-        if (OtherThanBear2 is Screw) { moveSpeed = 0.5f; x += knockBack; y -= knockBack; Console.Write("speed slow down"); } else { }
+        if (OtherThanBear2 is Screw) { movementXSpeed = 0.5f;/* x += knockBack; y -= knockBack; Console.Write("speed slow down");*/ } 
 
     }
     void PlayerDestroyed()
