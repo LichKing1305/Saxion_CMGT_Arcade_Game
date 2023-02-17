@@ -15,6 +15,8 @@ public class Bear : AnimationSprite
     /*---------int---------*/
     int health = 1;
     int _score;
+    int zero = 0;
+    const int coolDown = 2000;
 
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
@@ -48,6 +50,7 @@ public class Bear : AnimationSprite
         //   Console.WriteLine(health);
         // Console.WriteLine(jumpSpeed);
         Shot();
+        timetest();
 
     }
 
@@ -92,13 +95,21 @@ public class Bear : AnimationSprite
 
 
     }
+    void timetest() 
+    {
+         
+        Console.WriteLine(Time.deltaTime+":"+zero);
+        if (Input.GetKeyUp(Key.SPACE)) { zero = Time. ; }
+
+    }
 
     void Shot()
     {
-        Console.WriteLine(height);
+        // Console.WriteLine(); 
+       
         if (Input.GetKeyDown(Key.F))
         {
-            Screw screw = new Screw(_mirrorX ? -10:10);
+            Screw screw = new Screw(_mirrorX ? -1:1);
             screw.SetXY(x+(_mirrorX ? -3:1)*(width/2), y-(height/2));
             parent.AddChild(screw);
         }
@@ -117,7 +128,7 @@ public class Bear : AnimationSprite
     {
         //  if (OtherThanBear is Solid) { MoveUntilCollision(0,0); Console.WriteLine("collde"); }
         if (OtherThanBear is Claw) { health--; /* Console.WriteLine("fff");*/ }
-        if(OtherThanBear is Screw) { movementXSpeed = 0.5f;  }
+        if(OtherThanBear is Screw) { movementXSpeed = 0.5f; if (Time.time > coolDown)  { movementXSpeed=2.5f;  }  }
 
     }
     private void TimerCallback(Object o)
