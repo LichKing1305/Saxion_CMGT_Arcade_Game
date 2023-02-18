@@ -10,6 +10,8 @@ public class Bear : AnimationSprite
     float initialDropSpeed = 0;
     float jumpSpeed;
     float movementXSpeed;
+    float initialMovementXSpeed;
+    float movementXSpeedDecrease = 0.5f;
     float dropSpeed;
 
     /*---------int---------*/
@@ -24,7 +26,7 @@ public class Bear : AnimationSprite
     {
         y = game.height - height;
         _score = 0;
-
+        initialMovementXSpeed = movementXSpeed;
         if (obj != null)
         {
             timer = new Timer(TimerCallback, null, 0, 1500);
@@ -106,13 +108,15 @@ public class Bear : AnimationSprite
     }
     void RecovorMovement()
     {
-        Console.WriteLine(Time.time + ":" + zero);
+        Console.WriteLine(initialMovementXSpeed);
         if (frozeMovement == true)
         {
             Console.WriteLine("got hit");
+            movementXSpeed = movementXSpeedDecrease;
             if (Time.time > zero + cooldown)
             {
                 Console.WriteLine("ready---------------------------------------------------------------------------------------");
+                movementXSpeed = 2.5f;
                 //  zero = Time.time;
                 frozeMovement = false;
             }
