@@ -5,7 +5,6 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
-
     Timer timer;
     /*----------floats---------*/
     float initialDropSpeed = 0;
@@ -16,6 +15,8 @@ public class Bear : AnimationSprite
     /*---------int---------*/
     int health = 1;
     int _score;
+    const int cooldown = 2000;
+    int zero;
     /*-------bool----*/
     bool frozeMovement = false;
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
@@ -23,6 +24,7 @@ public class Bear : AnimationSprite
     {
         y = game.height - height;
         _score = 0;
+
         if (obj != null)
         {
             timer = new Timer(TimerCallback, null, 0, 1500);
@@ -32,7 +34,7 @@ public class Bear : AnimationSprite
             health = obj.GetIntProperty("health", 1);
         }
     }
-    public Bear() : base("square.png", 1,1)
+    public Bear() : base("square.png", 1, 1)
     {
 
     }
@@ -104,11 +106,18 @@ public class Bear : AnimationSprite
     }
     void RecovorMovement()
     {
+        Console.WriteLine(Time.time + ":" + zero);
         if (frozeMovement == true)
         {
-            Thread.Sleep(2000);
-            frozeMovement = false;
+            Console.WriteLine("got hit");
+            if (Time.time > zero + cooldown)
+            {
+                Console.WriteLine("ready---------------------------------------------------------------------------------------");
+                //  zero = Time.time;
+                frozeMovement = false;
+            }
         }
+        else { zero = Time.time; }
     }
     private void TimerCallback(Object o)
     {
