@@ -33,8 +33,8 @@ public class MyGame : Game
         /*	hud = new HUD(bear);
         AddChild(hud);*/
         //  bear2 = new Bear2();
-        menu = new Menu(_menu);
-        AddChild(menu);
+        /*menu = new Menu(_menu);
+        AddChild(menu);*/
         level = new Level(map);
         AddChild(level);
        

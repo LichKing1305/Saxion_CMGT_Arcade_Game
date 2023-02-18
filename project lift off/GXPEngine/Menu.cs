@@ -47,7 +47,7 @@ public class Menu : GameObject
         loader.autoInstance = true;
         loader.LoadObjectGroups();
         {
-            bear = new Bear();
+           // bear = new Bear();
             bear2 = new Bear2();
          
         }
