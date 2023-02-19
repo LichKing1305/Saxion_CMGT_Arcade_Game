@@ -73,7 +73,7 @@ public class Bear : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKey(Key.W))
+                if (Input.GetKeyDown(Key.W))
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
                 }
