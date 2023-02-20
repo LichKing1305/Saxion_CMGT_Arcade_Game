@@ -73,9 +73,9 @@ public class Bear : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKey(Key.W))
+                if (Input.GetKeyDown(Key.W))
                 {
-                    this.Move(0, initialDropSpeed -= jumpSpeed);
+                    this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
                 }
             }
         }
@@ -108,7 +108,7 @@ public class Bear : AnimationSprite
     }
     void RecovorMovement()
     {
-        Console.WriteLine(initialMovementXSpeed);
+        //Console.WriteLine(initialMovementXSpeed);
         if (frozeMovement == true)
         {
             Console.WriteLine("got hit");

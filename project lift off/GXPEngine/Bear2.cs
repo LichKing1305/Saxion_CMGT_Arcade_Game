@@ -8,10 +8,13 @@ public class Bear2 : AnimationSprite
     float initialDropSpeed;
     float dropSpeed = 0.2f;
     float movementXSpeed = 1.5f;
+    float movementXSpeedDecrease = 0.5f;
     float jumpSpeed = 10f;
     /*-------int------------*/
     int health = 1;
     int _score;
+    const int cooldown = 2000;
+    int zero;
     /*------bool-----------*/
     public bool Player2Switch;
     bool frozeMovement = false;
@@ -44,13 +47,13 @@ public class Bear2 : AnimationSprite
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
-            if (colied[i] is Solid || colied[i] is Bear2)
+            if (colied[i] is Solid || colied[i] is Bear)
             {
                 initialDropSpeed = 0;
                 y = oldy;
                 if (Input.GetKey(Key.I))
                 {
-                    this.Move(0, initialDropSpeed -= jumpSpeed);
+                    this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
                 }
             }
         }
@@ -62,7 +65,7 @@ public class Bear2 : AnimationSprite
         if (Input.GetKeyDown(Key.P))
         {
             Screw screw = new Screw(_mirrorX ? -1 : 1);
-            screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
+            screw.SetXY(x + (_mirrorX ? -3 : 3) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
             Console.WriteLine(screw.x+":"+screw.y);
         }
@@ -75,7 +78,7 @@ public class Bear2 : AnimationSprite
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)
     {
-        if (OtherThanBear is Claw) { health--; }
+        if (OtherThanBear is Claw) { health--; Player2Switch = false; }
         if (OtherThanBear is Screw)
         {
             frozeMovement = true;
@@ -83,11 +86,20 @@ public class Bear2 : AnimationSprite
     }
     void RecovorMovement()
     {
+        //Console.WriteLine(initialMovementXSpeed);
         if (frozeMovement == true)
         {
-            Thread.Sleep(2000);
-            frozeMovement = false;
+            Console.WriteLine("got hit");
+            movementXSpeed = movementXSpeedDecrease;
+            if (Time.time > zero + cooldown)
+            {
+                Console.WriteLine("ready---------------------------------------------------------------------------------------");
+                movementXSpeed = 2.5f;
+                //  zero = Time.time;
+                frozeMovement = false;
+            }
         }
+        else { zero = Time.time; }
     }
     private void TimerCallback(Object o)
     {
