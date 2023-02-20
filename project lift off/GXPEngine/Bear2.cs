@@ -63,7 +63,7 @@ public class Bear2 : AnimationSprite
         Console.WriteLine(x + ":" + y+":frozeMovement:"+frozeMovement);
         if (Input.GetKeyDown(Key.P))
         {
-            Screw screw = new Screw(_mirrorX ? -1 : 1);
+            Screw screw = new Screw(_mirrorX ? -5 : 5 );
             screw.SetXY(x + (_mirrorX ? -3 : 3) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
             Console.WriteLine(screw.x+":"+screw.y);
