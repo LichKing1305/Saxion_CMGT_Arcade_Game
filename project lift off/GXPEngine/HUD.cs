@@ -1,25 +1,24 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using GXPEngine;
 
-public class HUD : Canvas 
+namespace GXPEngine
 {
-    private Claw _claw;
-    string SNES= "SnesItalic-1G9Be.ttf";
-    public HUD (Claw claw) : base(128,64) 
+
+    public class HUD : Canvas
     {
-        _claw = claw;
-    }
+        private Bear _bear;
+        public HUD(Bear bear) : base(128, 64, false)
+        {
+            _bear = bear;
+        }
 
-    void Update () 
-    { 
-        graphics.Clear(Color.Empty);
-        graphics.DrawString("Time:" + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.White, 100, 0);
-        Console.WriteLine(_claw.GetScore());
+        void Update()
+        {
+            graphics.Clear(Color.Empty);
+            graphics.DrawString("Score: " + _bear.GetScore(), SystemFonts.DefaultFont, Brushes.White, 0, 600);
+        }
     }
-}
-
+}*/

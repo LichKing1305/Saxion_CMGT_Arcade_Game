@@ -28,11 +28,10 @@ public class MyGame : Game
         //  LoadLevel(map);
         /*bear= new Bear("square.png", 1, 1);
 		AddChild(bear);*/
-        Claw claw;
-        claw = new Claw();
-        HUD hud;
-        hud = new HUD(claw);
-        AddChild(hud);
+        /*claw= new Claw();
+		AddChild(claw);*/
+        /*	hud = new HUD(bear);
+        AddChild(hud);*/
         //  bear2 = new Bear2();
         /*menu = new Menu(_menu);
         AddChild(menu);*/
