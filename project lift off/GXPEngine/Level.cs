@@ -21,7 +21,7 @@ public class Level : GameObject
 
     void startMusic () 
     {
-        _music = new Sound("music.mp3", true, true);
+        _music = new Sound("BGMusic.wav", true, true);
         _musicChannel = _music.Play();
     }
 
