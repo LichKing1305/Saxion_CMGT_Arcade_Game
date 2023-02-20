@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using GXPEngine;
 using TiledMapParser;
 using System.Threading;
@@ -15,6 +16,10 @@ public class Claw : AnimationSprite
     {
         timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
+        
+    public Claw() : base("triangle.png", 1, 1)
+    {
+        
     }
     public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
@@ -31,7 +36,6 @@ public class Claw : AnimationSprite
     {
         return _score;
     }
-
     void Update()
     {
         XMovement();
