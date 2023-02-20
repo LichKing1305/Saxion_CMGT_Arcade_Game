@@ -34,9 +34,9 @@ public class Bear : AnimationSprite
             health = obj.GetIntProperty("health", 1);
         }
     }
-    public Bear() : base("square.png", 1, 1)
+    public Bear() : base("bear_sprite_all.png", 8, 5)
     {
-        
+
 
     }
 
@@ -51,13 +51,21 @@ public class Bear : AnimationSprite
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void XMovement()
     {
-        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); }
+        float oldx = x;
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); SetCycle(0,4); Animate(0.5f); }
+        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); }
+        GameObject[] colied = GetCollisions();
+        for (int i = 0; i < colied.Length; i++)
+        {
+            if (colied[i] is Solid || colied[i] is Bear2)
+            {
+                x = oldx;
+            }
+        }
     }
     /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/
     void YMovement()
     {
-        // screw.throwingSpeed;
         float oldy = y;
         initialDropSpeed += dropSpeed;
         y += initialDropSpeed;
@@ -78,11 +86,12 @@ public class Bear : AnimationSprite
     /*------------------------- CODE FOR SHOTING PROJECTILE(S)--------------------------------------*/
     void Shot()
     {
-        if (Input.GetKeyDown(Key.F)&&coinAmount>=1)
+        if (Input.GetKeyDown(Key.F) && coinAmount >= 1)
         {
             Screw screw = new Screw(_mirrorX ? -5 : 5);
             screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
+            coinAmount--;
         }
 
 
@@ -91,7 +100,7 @@ public class Bear : AnimationSprite
     void Death()
     {
         if (health < 1) { Destroy(); }
-       // Console.WriteLine(health);
+        // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)
@@ -101,11 +110,12 @@ public class Bear : AnimationSprite
         {
             frozeMovement = true;
         }
-        if(OtherThanBear is PickupCoin) 
+        if (OtherThanBear is PickupCoin)
         {
-            PickupCoin pickup= OtherThanBear as PickupCoin;
-            pickup.HasPickedUp=true; 
-        }   
+            PickupCoin pickup = OtherThanBear as PickupCoin;
+            pickup.HasPickedUp = true;
+            coinAmount++;
+        }
     }
     void RecovorMovement()
     {

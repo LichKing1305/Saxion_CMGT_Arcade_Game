@@ -51,6 +51,7 @@ public class MyGame : Game
           if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
           if (bear2.Player2Switch == true) { AddChild(bear2); }
           else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }*/
+       
     }
 
     static void Main()                          // Main() is the first method that's called when the program is run
