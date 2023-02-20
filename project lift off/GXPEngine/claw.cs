@@ -84,7 +84,7 @@ public class Claw : AnimationSprite
         if (/*!_gameOver &&*/ bear1.health > 0 && bear2.health > 0)
         {
             _score = _score - 1;
-            Console.WriteLine(_score);
+           // Console.WriteLine(_score);
         }
     }
 }

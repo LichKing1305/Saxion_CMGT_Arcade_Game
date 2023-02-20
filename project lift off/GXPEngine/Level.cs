@@ -9,6 +9,7 @@ public class Level : GameObject
     Bear bear;
     Claw claw;
     HUD hud;
+    PickupCoin pickup;
     Bear2 bear2;
     //  Powerup power1;
     //  public string map = "levlemap.tmx";
@@ -17,6 +18,8 @@ public class Level : GameObject
         startMusic();
         loader = new TiledLoader(filename);
         createlevel();
+        pickup= new PickupCoin();
+        AddChild(pickup);
     }
 
     void startMusic () 
@@ -37,7 +40,7 @@ public class Level : GameObject
         loader.autoInstance = true;
         loader.LoadObjectGroups();
         {
-            bear = new Bear();
+           // bear = new Bear();
             bear2 = new Bear2();
             // AddChild(bear);
             claw = new Claw();
@@ -85,7 +88,7 @@ public class Level : GameObject
                 _musicChannel.Volume -= 0.25f;
             }
         }
-        if (Input.GetKeyDown(Key.NUMPAD_2))
+        if (Input.GetKeyDown(Key.FOUR))
         {
             if (_musicChannel.Volume < 1.5f)
             {

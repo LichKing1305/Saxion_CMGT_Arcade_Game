@@ -1,17 +1,16 @@
 ﻿using GXPEngine;
 using System;
-using TiledMapParser;
 
- class Screw : AnimationSprite
+class Screw : AnimationSprite
 {
     public float throwingSpeed;
-  
-    public Screw(float vx) : base("coin.jpg", 1, 1) 
+
+    public Screw(float vx) : base("coin.jpg", 1, 1)
     {
         throwingSpeed = vx;
-        width=width/2;
+        width = width / 2;
         height = height / 2;
-    
+        
     }
     void Update()
     {
@@ -30,7 +29,12 @@ using TiledMapParser;
     }
     void OnCollision(GameObject notBullet)
     {
-        if (notBullet is Bear2 || notBullet is Bear || notBullet is Solid) { this.LateDestroy(); /*bullet.Play(); }*/Console.WriteLine("im hitting collision"); }  
+        if (notBullet is Bear2 || notBullet is Bear || notBullet is Solid) { this.LateDestroy(); /*bullet.Play(); }Console.WriteLine("im hitting collision");*/ }
+
+    }
+    void SpawnCoin()
+    {
+
 
     }
 

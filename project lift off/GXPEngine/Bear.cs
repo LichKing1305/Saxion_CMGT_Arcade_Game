@@ -4,6 +4,7 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
+    PickupCoin pickup;
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
@@ -16,6 +17,7 @@ public class Bear : AnimationSprite
     public int health = 1;
     const int cooldown = 2000;
     int zero;
+    int coinAmount;
     /*-------bool----*/
     bool frozeMovement = false;
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
@@ -23,6 +25,7 @@ public class Bear : AnimationSprite
     {
         y = game.height - height;
         initialMovementXSpeed = movementXSpeed;
+        //pickup = new PickupCoin();
         if (obj != null)
         {
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
@@ -33,6 +36,7 @@ public class Bear : AnimationSprite
     }
     public Bear() : base("square.png", 1, 1)
     {
+        
 
     }
 
@@ -74,7 +78,7 @@ public class Bear : AnimationSprite
     /*------------------------- CODE FOR SHOTING PROJECTILE(S)--------------------------------------*/
     void Shot()
     {
-        if (Input.GetKeyDown(Key.F))
+        if (Input.GetKeyDown(Key.F)&&coinAmount>=1)
         {
             Screw screw = new Screw(_mirrorX ? -5 : 5);
             screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
@@ -87,7 +91,7 @@ public class Bear : AnimationSprite
     void Death()
     {
         if (health < 1) { Destroy(); }
-        Console.WriteLine(health);
+       // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)
@@ -97,6 +101,11 @@ public class Bear : AnimationSprite
         {
             frozeMovement = true;
         }
+        if(OtherThanBear is PickupCoin) 
+        {
+            PickupCoin pickup= OtherThanBear as PickupCoin;
+            pickup.HasPickedUp=true; 
+        }   
     }
     void RecovorMovement()
     {
