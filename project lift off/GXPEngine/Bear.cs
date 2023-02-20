@@ -1,6 +1,5 @@
 ﻿using GXPEngine;
 using System;
-using System.Threading;
 using TiledMapParser;
 
 public class Bear : AnimationSprite
@@ -54,6 +53,7 @@ public class Bear : AnimationSprite
     /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/
     void YMovement()
     {
+        // screw.throwingSpeed;
         float oldy = y;
         initialDropSpeed += dropSpeed;
         y += initialDropSpeed;
@@ -76,7 +76,7 @@ public class Bear : AnimationSprite
     {
         if (Input.GetKeyDown(Key.F))
         {
-            Screw screw = new Screw(_mirrorX ? -1 : 1);
+            Screw screw = new Screw(_mirrorX ? -5 : 5);
             screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
         }
