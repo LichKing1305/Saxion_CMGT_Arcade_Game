@@ -2,6 +2,7 @@
 using TiledMapParser;
 public class Level : GameObject
 {
+    private bool _gameOver = false;
     Sound _music;
     float _previousVolume;
     SoundChannel _musicChannel;
