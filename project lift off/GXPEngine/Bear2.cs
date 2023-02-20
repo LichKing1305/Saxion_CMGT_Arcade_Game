@@ -73,6 +73,7 @@ public class Bear2 : AnimationSprite
     void Death()
     {
         if (health < 1) { Destroy(); }
+        Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)

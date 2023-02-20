@@ -18,8 +18,7 @@ namespace GXPEngine
         void Update()
         {
             graphics.Clear(Color.Empty);
-            graphics.DrawString("Time: " + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.White, 100, 0);
-
+            graphics.DrawString("Time: " + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.Black, 0, 0);
         }
     }
 }
