@@ -2,6 +2,9 @@
 using TiledMapParser;
 public class Level : GameObject
 {
+    Sound _music;
+    float _previousVolume;
+    SoundChannel _musicChannel;
     TiledLoader loader;
     Bear bear;
     //  Claw claw;
@@ -11,10 +14,21 @@ public class Level : GameObject
     //  public string map = "levlemap.tmx";
     public Level(string filename)
     {
+        startMusic();
         loader = new TiledLoader(filename);
         createlevel();
     }
 
+    void startMusic () 
+    {
+        _music = new Sound("music.mp3", true, true);
+        _musicChannel = _music.Play();
+    }
+
+    void stopMusic () 
+    {
+        _musicChannel.Stop();
+    }
     void createlevel()
     {
         //  loader.LoadImageLayers();
@@ -52,6 +66,42 @@ public class Level : GameObject
          {
              power1.Pickup(); // Replace with your actual object-spawning code
          }/*/
+        if (Input.GetKeyDown(Key.N))
+        {
+            if (_musicChannel.IsPlaying)
+            {
+                stopMusic();
+            }
+            else
+            {
+                startMusic();
+            }
+        }
+        if (Input.GetKeyDown(Key.NUMPAD_1))
+        {
+            if (_musicChannel.Volume > 0)
+            {
+                _musicChannel.Volume -= 0.25f;
+            }
+        }
+        if (Input.GetKeyDown(Key.NUMPAD_2))
+        {
+            if (_musicChannel.Volume < 1.5f)
+            {
+                _musicChannel.Volume += 0.25f;
+            }
+        }
+        if (Input.GetKeyDown(Key.NUMPAD_3))
+        {
+            if (_musicChannel.Volume > 0)
+            {
+                _previousVolume = _musicChannel.Volume;
+                _musicChannel.Volume = 0;
+            }
+            else
+            {
+                _musicChannel.Volume = _previousVolume;
+            }
+        }
     }
-
 }
