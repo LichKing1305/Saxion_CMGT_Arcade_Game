@@ -43,11 +43,11 @@
     <Compile Include="Bear.cs" />
     <Compile Include="Bear2.cs" />
     <Compile Include="Button.cs" />
-    <Compile Include="HUD.cs" />
     <Compile Include="claw.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MyGame.cs" />

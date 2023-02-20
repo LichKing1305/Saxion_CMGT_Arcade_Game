@@ -1,4 +1,4 @@
-using GXPEngine;
+﻿using GXPEngine;
 using System;
 using System.Threading;
 
@@ -11,7 +11,7 @@ public class Bear2 : AnimationSprite
     float movementXSpeedDecrease = 0.5f;
     float jumpSpeed = 10f;
     /*-------int------------*/
-    public int health = 1;
+    int health = 1;
     int _score;
     const int cooldown = 2000;
     int zero;
