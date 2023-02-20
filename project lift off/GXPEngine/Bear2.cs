@@ -12,7 +12,6 @@ public class Bear2 : AnimationSprite
     float jumpSpeed = 10f;
     /*-------int------------*/
     public int health = 1;
-    int _score;
     const int cooldown = 2000;
     int zero;
     /*------bool-----------*/
@@ -100,13 +99,6 @@ public class Bear2 : AnimationSprite
             }
         }
         else { zero = Time.time; }
-    }
-    private void TimerCallback(Object o)
-    {
-        if (health > 0)
-        {
-            _score = _score + 1;
-        }
     }
     void PlayerDestroyed()
     {

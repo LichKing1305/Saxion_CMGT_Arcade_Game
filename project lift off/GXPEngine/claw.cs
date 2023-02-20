@@ -14,7 +14,7 @@ public class Claw : AnimationSprite
     Timer timer;
     public Claw() : base("triangle.png", 1, 1)
     {
-        //timer = new Timer(TimerCallback, null, 0, 1000);
+        timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
     }
     
@@ -71,16 +71,16 @@ public class Claw : AnimationSprite
                 }
             }
         }
-        /*private void TimerCallback(Object o)
+        private void TimerCallback(Object o)
         {
             Bear bear1 = new Bear();
             Bear2 bear2 = new Bear2();
-            if (bear1.health > 0 || bear2.health > 0)
+            if (bear1.health > 0 && bear2.health > 0)
             {
                 _score = _score - 1;
                 Console.WriteLine(_score);
             }
-        }*/
+        }
     }
 
 

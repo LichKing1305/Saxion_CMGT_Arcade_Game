@@ -5,9 +5,9 @@ using System;
 public class MyGame : Game
 {
     Level level;
-    Menu menu;
+    //Menu menu;
     string map = "levlemap.tmx";
-    string _menu = "menu.tmx";
+    //string _menu = "menu.tmx";
 
 
     public MyGame() : base(800, 600, false, true, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen

@@ -5,7 +5,6 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
-    Timer timer;
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
@@ -16,7 +15,6 @@ public class Bear : AnimationSprite
 
     /*---------int---------*/
     public int health = 1;
-    int _score;
     const int cooldown = 2000;
     int zero;
     /*-------bool----*/
@@ -25,11 +23,9 @@ public class Bear : AnimationSprite
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
         y = game.height - height;
-        _score = 0;
         initialMovementXSpeed = movementXSpeed;
         if (obj != null)
         {
-            timer = new Timer(TimerCallback, null, 0, 1500);
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
             jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
             movementXSpeed = obj.GetFloatProperty("movementXSpeed", 2.5f);
@@ -39,11 +35,6 @@ public class Bear : AnimationSprite
     public Bear() : base("square.png", 1, 1)
     {
 
-    }
-
-    public int GetScore()
-    {
-        return _score;
     }
 
     void Update()
@@ -122,13 +113,6 @@ public class Bear : AnimationSprite
             }
         }
         else { zero = Time.time; }
-    }
-    private void TimerCallback(Object o)
-    {
-        if (health > 0)
-        {
-            _score = _score + 1;
-        }
     }
 }
 

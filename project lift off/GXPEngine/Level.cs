@@ -7,8 +7,8 @@ public class Level : GameObject
     SoundChannel _musicChannel;
     TiledLoader loader;
     Bear bear;
-    //  Claw claw;
-    //HUD hud;
+    Claw claw;
+    HUD hud;
     Bear2 bear2;
     //  Powerup power1;
     //  public string map = "levlemap.tmx";
@@ -40,9 +40,10 @@ public class Level : GameObject
             bear = new Bear();
             bear2 = new Bear2();
             // AddChild(bear);
-            //  claw = new Claw();
+            claw = new Claw();
             // AddChild(claw);
-            //  AddChild(new HUD(bear));
+            hud = new HUD(claw);
+            AddChild(hud);
             //  power1 = new Powerup();
             // AddChild(power1);
         }
