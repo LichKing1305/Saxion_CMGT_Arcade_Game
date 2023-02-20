@@ -1,6 +1,6 @@
 ﻿using GXPEngine;
 using TiledMapParser;
-class Level : GameObject
+public class Level : GameObject
 {
     TiledLoader loader;
     Bear bear;
