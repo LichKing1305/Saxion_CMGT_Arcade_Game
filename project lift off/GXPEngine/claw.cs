@@ -1,5 +1,8 @@
-﻿using GXPEngine;
+
+using System;
+using GXPEngine;
 using TiledMapParser;
+using System.Threading;
 
 public class Claw : AnimationSprite
 {
@@ -7,6 +10,13 @@ public class Claw : AnimationSprite
     float movementSpeed = 1.5f;
     float dropSpeed = 10f;
     float goUpSpeed = 3f;
+    public int _score;
+    Timer timer;
+    public Claw() : base("triangle.png", 1, 1)
+    {
+        timer = new Timer(TimerCallback, null, 0, 1000);
+        _score = 240;
+        
     public Claw() : base("triangle.png", 1, 1)
     {
         
@@ -22,6 +32,10 @@ public class Claw : AnimationSprite
         }
     }
 
+    public int GetScore()
+    {
+        return _score;
+    }
     void Update()
     {
         XMovement();
@@ -58,6 +72,15 @@ public class Claw : AnimationSprite
                 dropSwitch = true;
                 y -= goUpSpeed;
             }
+        }
+    }
+    private void TimerCallback(Object o)
+    {
+        Bear bear1 = new Bear();
+        Bear2 bear2 = new Bear2();
+        if (bear1.health > 0 || bear2.health > 0)
+        {
+            _score = _score - 1;
         }
     }
 }

@@ -15,7 +15,7 @@ public class Bear : AnimationSprite
     float dropSpeed;
 
     /*---------int---------*/
-    int health = 1;
+    public int health = 1;
     int _score;
     const int cooldown = 2000;
     int zero;
