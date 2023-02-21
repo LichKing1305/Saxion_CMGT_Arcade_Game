@@ -24,10 +24,5 @@ class PickupCoin : AnimationSprite
         
     }
 
-
-
-
-
-
 }
 
