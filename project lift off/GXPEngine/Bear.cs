@@ -4,8 +4,13 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
+<<<<<<< HEAD
     PickupCoin pickup;
     Sound bearwalk;
+=======
+    //PickupCoin pickup;
+    Sound _walkSound;
+>>>>>>> 8a1fd3600eec220774eb882620e8869ca2a2aad6
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
@@ -39,11 +44,15 @@ public class Bear : AnimationSprite
     }
     public Bear() : base("bear_sprite_all.png", 8, 5)
     {
-
+        _walkSound = new Sound("bear_walk_sound.wav", true, false);
 
     }
     
 
+    void playSound() 
+    { 
+        
+    }
     void Update()
     {
         XMovement();
@@ -70,8 +79,13 @@ public class Bear : AnimationSprite
     void XMovement()
     {
         float oldx = x;
+<<<<<<< HEAD
         if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); WalkAnimation(); }
         else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); WalkAnimation(); }
+=======
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); SetCycle(0,4); Animate(0.5f); if(_walkSound.Play()) }
+        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); }
+>>>>>>> 8a1fd3600eec220774eb882620e8869ca2a2aad6
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
@@ -121,6 +135,7 @@ public class Bear : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
+<<<<<<< HEAD
         
         if (health < 1) 
         {
@@ -132,6 +147,9 @@ public class Bear : AnimationSprite
            // else { SetCycle(20, 0); Animate(0f); }
         }
        
+=======
+        if (health < 1) { Destroy(); }
+>>>>>>> 8a1fd3600eec220774eb882620e8869ca2a2aad6
         // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
