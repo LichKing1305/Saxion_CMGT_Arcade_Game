@@ -9,16 +9,16 @@ namespace GXPEngine
 
     public class HUD : Canvas
     {
-        private Claw _claw;
-        public HUD(Claw claw) : base(256, 128, false)
+        private Level level;
+        public HUD(Level _level) : base(256, 128, false)
         {
-            _claw = claw;
+            level = _level;
         }
 
         void Update()
         {
             graphics.Clear(Color.Empty);
-            graphics.DrawString("Time: " + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.White, 75, 0);
+            graphics.DrawString("Time: " + level.GetScore(), SystemFonts.DefaultFont, Brushes.White, 75, 0);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GXPEngine;
 using System;
+using System.Threading;
 using TiledMapParser;
 public class Level : GameObject
 {
@@ -7,25 +8,65 @@ public class Level : GameObject
     float _previousVolume;
     SoundChannel _musicChannel;
     TiledLoader loader;
+    // Level level;
     Bear bear;
     Claw claw;
-    HUD hud;
     PickupCoin pickup;
     Bear2 bear2;
+    public int _score;
+    Timer timer;
+    bool _gameOver = false;
     const int coolDown = 10000;
     int timeFollower = 0;
+    int lastScore;
+    public string _filename;
+    public int _cols;
+    public int _rows;
     //  Powerup power1;
     //  public string map = "levlemap.tmx";
     public Level(string filename)
     {
-        bear = new Bear();
-        startMusic();
         loader = new TiledLoader(filename);
         createlevel();
+        startMusic();
         pickup = new PickupCoin();
         AddChild(pickup);
+        claw = new Claw();
+        timer = new Timer(TimerCallback, null, 0, 1000);
+        _score = 240;
     }
+    public int GetScore()
+    {
+        return _score;
+    }
+    private void TimerCallback(Object o)
+    {
+        _score = _score - 1;
 
+        if (_score <= 0)
+        {
+            _score = 0;
+            _gameOver = true;
+        }
+        if (bear2.health < 1 /*&&  bear.health<1*/)
+        {
+            _score = lastScore;
+            _gameOver = true;
+        }
+        else
+        {
+            Console.WriteLine(bear.health);
+            lastScore = _score;
+        }
+
+    }
+    void Update()
+    {
+        SpawnCoin();
+        BackgourndMusic();
+        SpawnBear2();
+        EndLevel();
+    }
     void startMusic()
     {
         _music = new Sound("BGMusic.wav", true, true);
@@ -38,18 +79,21 @@ public class Level : GameObject
     }
     void createlevel()
     {
-        //loader.LoadImageLayers();
-        loader.addColliders = true;
-        loader.LoadTileLayers();
-        loader.autoInstance = true;
-        loader.LoadObjectGroups();
+        if (!_gameOver)
         {
-           
-            bear2 = new Bear2();
-            claw = new Claw();
-            hud = new HUD(claw);
-            AddChild(hud);
+            loader.addColliders = false;
+            loader.LoadImageLayers();
+            loader.addColliders = true;
+            loader.LoadTileLayers();
+            loader.autoInstance = true;
+            loader.LoadObjectGroups();
+            {
+                bear2 = new Bear2();
+                bear = new Bear("bear_sprite_all.png", 8, 5, null);
+            }
+
         }
+
     }
     void SpawnCoin()
     {
@@ -85,12 +129,16 @@ public class Level : GameObject
 
         }
     }
-    void Update()
+    void SpawnBear2()
     {
-        SpawnCoin();
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
         else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
+    }
+
+
+    void BackgourndMusic()
+    {
         if (Input.GetKeyDown(Key.N))
         {
             if (_musicChannel.IsPlaying)
@@ -127,6 +175,15 @@ public class Level : GameObject
             {
                 _musicChannel.Volume = _previousVolume;
             }
+        }
+
+    }
+    void EndLevel()
+    {
+        if (_gameOver == true)
+        {
+            this.Remove();
+            Console.WriteLine("endlevl");
         }
     }
 }

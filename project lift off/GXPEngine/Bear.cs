@@ -12,7 +12,6 @@ public class Bear : AnimationSprite
     float initialMovementXSpeed;
     float movementXSpeedDecrease = 0.5f;
     float dropSpeed;
-
     /*---------int---------*/
     public int health = 1;
     const int cooldown = 2000;
@@ -21,9 +20,17 @@ public class Bear : AnimationSprite
     /*-------bool----*/
     bool frozeMovement = false;
     bool death = true;
+
+    //Level level;
+
+
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
+       // level = new Level(map);
+        //filename = level._filename;
+        //cols = _cols;
+        //rows = _rows;
         y = game.height - height;
         initialMovementXSpeed = movementXSpeed;
         bearwalk = new Sound("bear_walk_sound.wav", true, false);
@@ -33,14 +40,14 @@ public class Bear : AnimationSprite
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
             jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
             movementXSpeed = obj.GetFloatProperty("movementXSpeed", 2.5f);
-            health = obj.GetIntProperty("health", 1);
+            //health = obj.GetIntProperty("health", 1);
         }
     }
-    public Bear() : base("bear_sprite_all.png", 8, 5)
+   /* public Bear() : base("bear_sprite_all.png", 8, 5)
     {
 
-    }
-    
+    }*/
+
     void Update()
     {
         XMovement();
@@ -48,7 +55,7 @@ public class Bear : AnimationSprite
         Death();
         Shot();
         RecovorMovement();
-       // Musics();
+        // Musics();
     }
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void WalkAnimation()
@@ -62,7 +69,7 @@ public class Bear : AnimationSprite
     void DeathAnimation()
     {
         SetCycle(12, 8); Animate(0.1f); //death = false;
-        
+
     }
     void XMovement()
     {
@@ -95,7 +102,7 @@ public class Bear : AnimationSprite
                 if (Input.GetKey(Key.W))
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
-                    
+
                 }
             }
         }
@@ -118,17 +125,17 @@ public class Bear : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        
-        if (health < 1) 
+
+        if (health < 1)
         {
-            Console.WriteLine(currentFrame);
-            
+            //  Console.WriteLine(currentFrame);
+
             if (currentFrame != 19)
-                DeathAnimation(); 
+                DeathAnimation();
             //}
-           // else { SetCycle(20, 0); Animate(0f); }
+            // else { SetCycle(20, 0); Animate(0f); }
         }
-       
+
         // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/

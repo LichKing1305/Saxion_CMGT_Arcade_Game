@@ -141,6 +141,7 @@ public class Bear2 : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
+       // Console.WriteLine(isDead);
         if (health < 1)
         { //Destroy();
             isIdle = false;
@@ -150,7 +151,7 @@ public class Bear2 : AnimationSprite
             {
                 DeathAnimation();
             }
-            Console.WriteLine(health);
+            
         }
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/

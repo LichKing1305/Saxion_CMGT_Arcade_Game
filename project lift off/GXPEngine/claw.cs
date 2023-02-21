@@ -10,20 +10,16 @@ public class Claw : AnimationSprite
     float movementSpeed = 1.5f;
     float dropSpeed = 10f;
     float goUpSpeed = 3f;
-    public int _score;
-    Timer timer;
-    private bool _gameOver = false;
-    Bear bear1 = new Bear();
-    Bear2 bear2 = new Bear2();
+   // Bear bear1 = new Bear();
+    Bear2 bear2;
     public Claw() : base("triangle.png", 1, 1)
     {
-        timer = new Timer(TimerCallback, null, 0, 1000);
-        _score = 240;
+       
     }
 
     public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
-
+        bear2 = new Bear2();
         if (obj != null)
         {
             dropSpeed = obj.GetFloatProperty("dropSpeed", 100f);
@@ -32,12 +28,11 @@ public class Claw : AnimationSprite
         }
     }
 
-    public int GetScore()
-    {
-        return _score;
-    }
+   
+   
     void Update()
     {
+      
         XMovement();
         YMovement();
         /*if (bear1.health <= 0 && bear2.health <= 0)
@@ -47,7 +42,7 @@ public class Claw : AnimationSprite
 
     }
     void XMovement()
-    {
+    {     
         if (Input.GetKey(Key.RIGHT)) { MoveUntilCollision(movementSpeed, 0); }
         else if (Input.GetKey(Key.LEFT)) { MoveUntilCollision(-movementSpeed, 0); }
     }
@@ -80,20 +75,7 @@ public class Claw : AnimationSprite
         }
     }
 
-    private void TimerCallback(Object o)
-    {
-        _score = _score - 1;
-
-        if (_score <= 0)
-        {
-            _score = 0;
-            _gameOver = true;
-        }
-        if (this.parent == null /*&& bear2.health >= 0*/) 
-        {
-            Console.WriteLine("im null");
-        }
-    }
+   
 }
 
 
