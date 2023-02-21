@@ -79,16 +79,18 @@ public class Claw : AnimationSprite
             }
         }
     }
+
     private void TimerCallback(Object o)
     {
-        if (/*!_gameOver &&*/ bear1.health > 0 && bear2.health > 0)
-        {
-            _score = _score - 1;
-           // Console.WriteLine(_score);
-        }
+        _score = _score - 1;
+
         if (_score <= 0)
         {
-            _score= 0;
+            _score = 0;
+        }
+        if (bear1.health >= 0 && bear2.health >= 0) 
+        {
+            
         }
     }
 }
