@@ -72,7 +72,7 @@ public class Claw : AnimationSprite
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
-            if (colied[i] is Solid || colied[i] is Bear2)
+            if (colied[i] is Solid )
             {
                 dropSwitch = true;
                 y -= goUpSpeed;

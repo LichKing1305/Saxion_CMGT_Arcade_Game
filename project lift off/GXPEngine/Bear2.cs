@@ -1,6 +1,5 @@
 ﻿using GXPEngine;
 using System;
-using System.Threading;
 
 public class Bear2 : AnimationSprite
 {
@@ -17,25 +16,92 @@ public class Bear2 : AnimationSprite
     /*------bool-----------*/
     public bool Player2Switch;
     bool frozeMovement = false;
-    public Bear2() : base("square2.png", 1, 1)
+    bool isIdle = true;
+    bool isShooting = false;
+    bool isJumping = false;
+    bool isDead = false;
+    bool isWalking = false;
+    public Bear2() : base("bunny_sprite_sheet.png", 8, 5)
     {
-        y = 300 - height;
+        y = 220;
         x = 300;
+        width = 64;
+        height = 100;
+
     }
     void Update()
     {
-        XMovement();
+        if (!isDead)
+        {
+            IdleAnimation();
+            XMovement();
+            Shot();
+            RecovorMovement();
+            ShotAnimation();
+            JumpAnimation();
+            WalkAnimation();
+
+        }
         YMovement();
         Death();
-        Shot();
-        RecovorMovement();
+    }
+    void WalkAnimation()
+    {
+        if (isWalking)
+        {
+            isJumping = false;
+            isIdle = false;
+            SetCycle(0, 4);
+            Animate(0.3f);
+        }
+    }
+    void IdleAnimation()
+    {
+        if (isIdle)
+        {
+            SetCycle(8, 4);
+            Animate(0.1f);
 
+        }
+    }
+    void ShotAnimation()
+    {
+        if (isShooting)
+        {
+            isWalking = false;
+            isIdle = false;
+            SetCycle(27, 10);
+            Animate(0.16f);
+            if (currentFrame == 36) { isShooting = false; }
+
+        }
+    }
+    void DeathAnimation()
+    {
+        SetCycle(12, 8); Animate(0.1f); //death = false;
+
+    }
+    void JumpAnimation()
+    {
+        if (isJumping)
+        {
+            isIdle = false;
+            isShooting = false;
+            SetCycle(4, 5);
+            Animate(0.04f);
+            Console.WriteLine(currentFrame);
+            if (currentFrame == 8)
+            {
+                isJumping = false;
+            }
+        }
     }
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void XMovement()
     {
-        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); }
-        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); }
+        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); isWalking = true; }
+        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); isWalking = true; }
+        else { isIdle = true; isWalking = false; }
     }
     /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/
     void YMovement()
@@ -50,9 +116,10 @@ public class Bear2 : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKey(Key.I))
+                if (Input.GetKey(Key.I) && !isDead)
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
+                    isJumping = true;
                 }
             }
         }
@@ -60,25 +127,36 @@ public class Bear2 : AnimationSprite
     /*------------------------- CODE FOR SHOTING PROJECTILE(S)--------------------------------------*/
     void Shot()
     {
-        Console.WriteLine(x + ":" + y+":frozeMovement:"+frozeMovement);
+        // Console.WriteLine(x + ":" + y + ":frozeMovement:" + frozeMovement);
         if (Input.GetKeyDown(Key.P))
         {
-            Screw screw = new Screw(_mirrorX ? -5 : 5 );
-            screw.SetXY(x + (_mirrorX ? -3 : 3) * (width / 2), y - (height / 2));
+            isShooting = true;
+            Screw screw = new Screw(_mirrorX ? -5 : 5);
+            screw.SetXY(x + (_mirrorX ? -2 : 2) * (width / 2), y + (height / 2));
             parent.AddChild(screw);
-            Console.WriteLine(screw.x+":"+screw.y);
+            Console.WriteLine(screw.x + ":" + screw.y);
+
         }
     }
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        if (health < 1) { Destroy(); }
-        Console.WriteLine(health);
+        if (health < 1)
+        { //Destroy();
+            isIdle = false;
+            isJumping = false;
+            isDead = true;
+            if (currentFrame != 19)
+            {
+                DeathAnimation();
+            }
+            Console.WriteLine(health);
+        }
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
     void OnCollision(GameObject OtherThanBear)
     {
-        if (OtherThanBear is Claw) { health--; Player2Switch = false; }
+        if (OtherThanBear is Claw) { health--; /*Player2Switch = false;*/ }
         if (OtherThanBear is Screw)
         {
             frozeMovement = true;
