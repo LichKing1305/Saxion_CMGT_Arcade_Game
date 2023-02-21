@@ -1,7 +1,7 @@
 using GXPEngine;
 using System;
 using System.Threading;
-
+using System.IO.Ports;
 
 public class MyGame : Game
 {
@@ -58,8 +58,40 @@ public class MyGame : Game
     }
 
     static void Main()                          // Main() is the first method that's called when the program is run
-    {
-        new MyGame().Start();                   // Create a "MyGame" and start it
+    {/*
+        SerialPort port = new SerialPort();
+        port.PortName = "COM4";
+        port.BaudRate = 9600;
+        port.RtsEnable = true;
+        port.DtrEnable = true;
+        port.Open();
+        while (true)
+        {
+            string line = port.ReadLine(); // read separated values
+                                           //string line = port.ReadExisting(); // when using characters
+            if (line != "")
+            {
+                Console.WriteLine("Read from port: " + line);
+            }
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                port.Write(key.KeyChar.ToString());  // writing a string to Arduino
+            }
+        }
+        */
+
+
+
+
+
+
+
+
+
+
+
+       new MyGame().Start();                   // Create a "MyGame" and start it
     }
     public void LoadLevel(string filename)
     {

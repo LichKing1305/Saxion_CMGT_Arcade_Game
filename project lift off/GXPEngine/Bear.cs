@@ -89,9 +89,10 @@ public class Bear : AnimationSprite
         if (Input.GetKeyDown(Key.F) && coinAmount >= 1)
         {
             Screw screw = new Screw(_mirrorX ? -5 : 5);
-            screw.SetXY(x + (_mirrorX ? -3 : 1) * (width / 2), y - (height / 2));
+            screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
             coinAmount--;
+            Console.WriteLine("shoting");
         }
 
 

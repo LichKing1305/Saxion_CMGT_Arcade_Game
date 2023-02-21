@@ -86,6 +86,10 @@ public class Claw : AnimationSprite
             _score = _score - 1;
            // Console.WriteLine(_score);
         }
+        if (_score <= 0)
+        {
+            _score= 0;
+        }
     }
 }
 
