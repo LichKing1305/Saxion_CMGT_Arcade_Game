@@ -91,7 +91,7 @@ public class Claw : AnimationSprite
         }
         if (bear1.health >= 0 && bear2.health >= 0) 
         {
-            _
+            
         }
     }
 }

@@ -86,6 +86,10 @@ public class Level : GameObject
         }
     }
 
+    void resetLevel() 
+    { 
+        
+    }
     void Update()
     {
         SpawnCoin();
@@ -140,6 +144,10 @@ public class Level : GameObject
             {
                 _musicChannel.Volume = _previousVolume;
             }
+        }
+        if (Input.GetKeyDown(Key.R))
+        {
+            resetLevel();
         }
     }
 }
