@@ -81,16 +81,6 @@ public class MyGame : Game
         }
         */
 
-
-
-
-
-
-
-
-
-
-
        new MyGame().Start();                   // Create a "MyGame" and start it
     }
     public void LoadLevel(string filename)

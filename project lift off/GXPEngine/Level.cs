@@ -59,7 +59,7 @@ public class Level : GameObject
     }
     void SpawnCoin()
     {
-        Console.WriteLine( (game.height - (64 + pickup.height)));
+       // Console.WriteLine( (game.height - (64 + pickup.height)));
 
 
         if (Time.time > timeFollower + coolDown)
