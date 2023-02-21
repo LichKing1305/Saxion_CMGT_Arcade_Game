@@ -44,6 +44,7 @@
     <Compile Include="Bear2.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="claw.cs" />
+    <Compile Include="CoinPIckup.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
