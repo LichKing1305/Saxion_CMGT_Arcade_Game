@@ -5,7 +5,8 @@ using System.IO.Ports;
 
 public class MyGame : Game
 {
-    Level level;
+    private Level _level;
+    //Level level;
     //Menu menu;
     string map = "levlemap.tmx";
     //string _menu = "menu.tmx";
@@ -37,8 +38,8 @@ public class MyGame : Game
         /*menu = new Menu(_menu);
         AddChild(menu);*/
         //spawnInterval = 2000; // in milliseconds
-        level = new Level(map);
-        AddChild(level);
+        _level = new Level(map);
+        AddChild(_level);
        
     }
 
@@ -54,7 +55,10 @@ public class MyGame : Game
           if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
           if (bear2.Player2Switch == true) { AddChild(bear2); }
           else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }*/
-       
+        if (Input.GetKeyDown(Key.R)) 
+        { 
+            ResetLevel();
+        }
     }
 
     static void Main()                          // Main() is the first method that's called when the program is run
@@ -89,6 +93,15 @@ public class MyGame : Game
 
 
     }
-
+    void ResetLevel()
+    {
+        if (_level != null) 
+        {
+            RemoveChild(_level);
+            _level = null;
+        }
+        _level = new Level(map);
+        AddChild(_level);
+    }
 }
 
