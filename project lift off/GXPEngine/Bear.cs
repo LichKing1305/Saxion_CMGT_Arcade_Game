@@ -5,6 +5,8 @@ using TiledMapParser;
 public class Bear : AnimationSprite
 {
     //PickupCoin pickup;
+    //Sound bearwalk;
+    //PickupCoin pickup;
     Sound _walkSound;
     /*----------floats---------*/
     float initialDropSpeed = 0;
@@ -21,11 +23,13 @@ public class Bear : AnimationSprite
     int coinAmount;
     /*-------bool----*/
     bool frozeMovement = false;
+    bool death = true;
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
         y = game.height - height;
         initialMovementXSpeed = movementXSpeed;
+        bearwalk = new Sound("p1 walking sound.wav", true, false);
         //pickup = new PickupCoin();
         if (obj != null)
         {
@@ -40,6 +44,7 @@ public class Bear : AnimationSprite
         _walkSound = new Sound("bear_walk_sound.wav", true, false);
 
     }
+    
 
     void playSound() 
     { 
@@ -52,13 +57,27 @@ public class Bear : AnimationSprite
         Death();
         Shot();
         RecovorMovement();
+       // Musics();
     }
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
+    void WalkAnimation()
+    {
+        SetCycle(0, 4); Animate(0.5f);
+    }
+    void JumpAnimation()
+    {
+        SetCycle(4, 4); Animate(0.1f);
+    }
+    void DeathAnimation()
+    {
+        SetCycle(12, 8); Animate(0.1f); //death = false;
+        
+    }
     void XMovement()
     {
         float oldx = x;
-        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); SetCycle(0,4); Animate(0.5f);}
-        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); }
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); WalkAnimation(); }
+        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); WalkAnimation(); }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
@@ -74,6 +93,7 @@ public class Bear : AnimationSprite
         float oldy = y;
         initialDropSpeed += dropSpeed;
         y += initialDropSpeed;
+        if (Input.GetKey(Key.W)) { JumpAnimation(); }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
@@ -81,9 +101,10 @@ public class Bear : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKeyDown(Key.W))
+                if (Input.GetKey(Key.W))
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
+                    
                 }
             }
         }
@@ -98,6 +119,7 @@ public class Bear : AnimationSprite
             parent.AddChild(screw);
             coinAmount--;
             Console.WriteLine("shoting");
+            SetCycle(28, 5); Animate(0.5f);
         }
 
 
@@ -105,7 +127,17 @@ public class Bear : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        if (health < 1) { Destroy(); }
+        
+        if (health < 1) 
+        {
+            Console.WriteLine(currentFrame);
+            
+            if (currentFrame != 19)
+                DeathAnimation(); 
+            //}
+           // else { SetCycle(20, 0); Animate(0f); }
+        }
+       
         // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/

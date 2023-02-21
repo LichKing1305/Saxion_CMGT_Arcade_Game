@@ -72,7 +72,16 @@ public class Level : GameObject
                 AddChild(pickup);
                 pickup.HasPickedUp = false;
                 pickup.x = Utils.Random(64, (game.width - (128 + pickup.width)));
-                pickup.y = Utils.Random(400, (game.height - (64 + pickup.height)));
+                pickup.y = Utils.Random(400, (game.height - (128 + pickup.height)));
+                GameObject[] colied = GetCollisions();
+                for (int i = 0; i < colied.Length; i++)
+                {
+                    if (colied[i] is Solid || colied[i] is Bear2)
+                    {
+                        pickup.x = Utils.Random(64, (game.width - (128 + pickup.width)));
+                        pickup.y = Utils.Random(400, (game.height - (128 + pickup.height)));
+                    }
+                }
             }
         }
         else if (pickup.HasPickedUp)
