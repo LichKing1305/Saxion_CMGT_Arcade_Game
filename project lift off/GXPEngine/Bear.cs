@@ -4,7 +4,6 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
-    PickupCoin pickup;
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
