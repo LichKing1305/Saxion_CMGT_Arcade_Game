@@ -19,13 +19,11 @@ public class Level : GameObject
     public Level(string filename)
     {
         bear = new Bear();
-       // AddChild(bear);
         startMusic();
         loader = new TiledLoader(filename);
         createlevel();
         pickup = new PickupCoin();
         AddChild(pickup);
-        
     }
 
     void startMusic()
@@ -40,7 +38,7 @@ public class Level : GameObject
     }
     void createlevel()
     {
-        //  loader.LoadImageLayers();
+        //loader.LoadImageLayers();
         loader.addColliders = true;
         loader.LoadTileLayers();
         loader.autoInstance = true;
@@ -48,20 +46,13 @@ public class Level : GameObject
         {
            
             bear2 = new Bear2();
-            // AddChild(bear);
             claw = new Claw();
-            // AddChild(claw);
             hud = new HUD(claw);
             AddChild(hud);
-            //  power1 = new Powerup();
-            // AddChild(power1);
         }
     }
     void SpawnCoin()
     {
-       // Console.WriteLine( (game.height - (64 + pickup.height)));
-
-
         if (Time.time > timeFollower + coolDown)
         {
             Console.WriteLine("spawn");
@@ -94,29 +85,12 @@ public class Level : GameObject
 
         }
     }
-
-    void resetLevel() 
-    { 
-        
-    }
     void Update()
     {
         SpawnCoin();
-
-        //Console.WriteLine(bear2.Player2Switch);
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
         else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
-        //   int bearScore = bear.GetScore();
-        /* if (bearScore % 100 == 0) // Check if the score is divisible by 100
-         {
-             power1.Pickup(); // Replace with your actual object-spawning code
-         }
-         / int bearScore2 = bear2.GetScore();
-         if (bearScore2 % 100 == 0) // Check if the score is divisible by 100
-         {
-             power1.Pickup(); // Replace with your actual object-spawning code
-         }/*/
         if (Input.GetKeyDown(Key.N))
         {
             if (_musicChannel.IsPlaying)
@@ -153,10 +127,6 @@ public class Level : GameObject
             {
                 _musicChannel.Volume = _previousVolume;
             }
-        }
-        if (Input.GetKeyDown(Key.R))
-        {
-            resetLevel();
         }
     }
 }

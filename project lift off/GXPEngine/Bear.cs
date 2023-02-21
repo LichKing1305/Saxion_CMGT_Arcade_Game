@@ -4,10 +4,7 @@ using TiledMapParser;
 
 public class Bear : AnimationSprite
 {
-    //PickupCoin pickup;
-    //Sound bearwalk;
-    //PickupCoin pickup;
-    Sound _walkSound;
+    Sound bearwalk;
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
@@ -29,7 +26,7 @@ public class Bear : AnimationSprite
     {
         y = game.height - height;
         initialMovementXSpeed = movementXSpeed;
-        bearwalk = new Sound("p1 walking sound.wav", true, false);
+        bearwalk = new Sound("bear_walk_sound.wav", true, false);
         //pickup = new PickupCoin();
         if (obj != null)
         {
@@ -41,15 +38,9 @@ public class Bear : AnimationSprite
     }
     public Bear() : base("bear_sprite_all.png", 8, 5)
     {
-        _walkSound = new Sound("bear_walk_sound.wav", true, false);
 
     }
     
-
-    void playSound() 
-    { 
-        
-    }
     void Update()
     {
         XMovement();
