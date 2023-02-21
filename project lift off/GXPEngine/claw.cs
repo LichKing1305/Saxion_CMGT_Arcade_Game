@@ -12,7 +12,7 @@ public class Claw : AnimationSprite
     float goUpSpeed = 3f;
     public int _score;
     Timer timer;
-    //private bool _gameOver = false;
+    private bool _gameOver = false;
     Bear bear1 = new Bear();
     Bear2 bear2 = new Bear2();
     public Claw() : base("triangle.png", 1, 1)
@@ -87,10 +87,11 @@ public class Claw : AnimationSprite
         if (_score <= 0)
         {
             _score = 0;
+            _gameOver = true;
         }
         if (bear1.health >= 0 && bear2.health >= 0) 
         {
-            
+            _
         }
     }
 }
