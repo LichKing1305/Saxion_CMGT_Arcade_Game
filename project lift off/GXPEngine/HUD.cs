@@ -10,7 +10,7 @@ namespace GXPEngine
     public class HUD : Canvas
     {
         private Claw _claw;
-        public HUD(Claw claw) : base(128, 64, false)
+        public HUD(Claw claw) : base(256, 128, false)
         {
             _claw = claw;
         }
@@ -18,7 +18,7 @@ namespace GXPEngine
         void Update()
         {
             graphics.Clear(Color.Empty);
-            graphics.DrawString("Time: " + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.Black, 0, 0);
+            graphics.DrawString("Time: " + _claw.GetScore(), SystemFonts.DefaultFont, Brushes.White, 75, 0);
         }
     }
 }
