@@ -51,7 +51,7 @@ public class Bear : AnimationSprite
     void XMovement()
     {
         float oldx = x;
-        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); SetCycle(0,4); Animate(0.5f); }
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); SetCycle(0, 4); Animate(0.5f); }
         else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
@@ -99,7 +99,13 @@ public class Bear : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        if (health < 1) { Destroy(); }
+        if (health < 1)
+        {
+            //this.Remove();
+            //Destroy();
+            parent = null;
+            
+        }
         // Console.WriteLine(health);
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/

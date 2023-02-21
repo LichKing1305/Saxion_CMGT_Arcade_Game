@@ -71,7 +71,7 @@ public class Level : GameObject
             {
                 AddChild(pickup);
                 pickup.HasPickedUp = false;
-                pickup.x = Utils.Random(64, (game.width - (64 + pickup.width)));
+                pickup.x = Utils.Random(64, (game.width - (128 + pickup.width)));
                 pickup.y = Utils.Random(400, (game.height - (64 + pickup.height)));
             }
         }

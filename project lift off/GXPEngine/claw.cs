@@ -89,9 +89,9 @@ public class Claw : AnimationSprite
             _score = 0;
             _gameOver = true;
         }
-        if (bear1.health >= 0 && bear2.health >= 0) 
+        if (this.parent == null /*&& bear2.health >= 0*/) 
         {
-            
+            Console.WriteLine("im null");
         }
     }
 }
