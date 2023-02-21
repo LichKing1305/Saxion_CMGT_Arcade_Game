@@ -9,7 +9,6 @@ public class MyGame : Game
     //Menu menu;
     string map = "levlemap.tmx";
     //string _menu = "menu.tmx";
-    Timer spawnTimer;
     //int spawnInterval;
 
     public MyGame() : base(800, 600, false, true, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
@@ -38,19 +37,11 @@ public class MyGame : Game
         /*menu = new Menu(_menu);
         AddChild(menu);*/
         //spawnInterval = 2000; // in milliseconds
-        spawnTimer = new Timer(TimerCallback,null,0, 3000);
         level = new Level(map);
         AddChild(level);
        
     }
 
-    void TimerCallback(Object s)
-    {
-        CoinPickup newcoin = new CoinPickup();
-        AddChild(newcoin);
-        Console.WriteLine(s);
-        newcoin.SetXY(-newcoin.width, game.height / 2);
-    }
     void KeyReleased()
     {
         Console.WriteLine("keyRelease");
