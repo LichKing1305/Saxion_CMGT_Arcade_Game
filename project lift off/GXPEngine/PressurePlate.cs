@@ -36,7 +36,6 @@ public class PressurePlate : Sprite
         Console.WriteLine("Level switch");
         if (!_isActivated)
         {
-            RemoveChild(menu);
             Level level = new Level(_map);
             _isActivated = true;
             level.LoadLevel();

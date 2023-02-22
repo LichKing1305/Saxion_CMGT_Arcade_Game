@@ -8,7 +8,7 @@ public class Level : GameObject
     float _previousVolume;
     SoundChannel _musicChannel;
     TiledLoader loader;
-    // Level level;
+    private Level _level;
     Bear bear;
     Claw claw;
     PickupCoin pickup;
@@ -22,8 +22,7 @@ public class Level : GameObject
     public string _filename;
     public int _cols;
     public int _rows;
-    //  Powerup power1;
-    //  public string map = "levlemap.tmx";
+    public string map = "levlemap.tmx";
     public Level(string filename)
     {
         loader = new TiledLoader(filename);
@@ -31,7 +30,7 @@ public class Level : GameObject
         startMusic();
         pickup = new PickupCoin();
         AddChild(pickup);
-        claw = new Claw();
+        claw = new Claw("claw_sprite.png",4,1,null);
         timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
     }
