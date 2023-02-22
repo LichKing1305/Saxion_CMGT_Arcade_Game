@@ -100,8 +100,8 @@ public class Bear2 : AnimationSprite
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void XMovement()
     {
-        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); isWalking = true; }
-        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); isWalking = true; }
+        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); isWalking = true; }
+        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); Move(-movementXSpeed, 0); isWalking = true; }
         else { isIdle = true; isWalking = false; }
     }
     /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/

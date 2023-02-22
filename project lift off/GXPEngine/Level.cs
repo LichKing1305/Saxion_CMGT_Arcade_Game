@@ -47,7 +47,7 @@ public class Level : GameObject
             _score = 0;
             _gameOver = true;
         }
-        if (bear2.health < 1 /*&&  bear.health<1*/)
+        if (bear2.health < 1 &&  bear.health<1)
         {
             _score = lastScore;
             _gameOver = true;
@@ -60,7 +60,7 @@ public class Level : GameObject
 
     }
 
-    public void loadLevel() 
+    public void LoadLevel() 
     { 
         
     }
@@ -91,7 +91,7 @@ public class Level : GameObject
       //  if (!_gameOver)
         //{
             loader.addColliders = false;
-            loader.LoadImageLayers();
+            //loader.LoadImageLayers();
             loader.addColliders = true;
             loader.LoadTileLayers();
             loader.autoInstance = true;
@@ -148,11 +148,11 @@ public class Level : GameObject
     {
         if (_level != null)
         {
-            RemoveChild(_level);
             _level = null;
+            _level.Destroy();
+            _level = new Level(map);
+            AddChild(_level);
         }
-        _level = new Level(map);
-        // AddChild(_level);
     }
     void BackgourndMusic()
     {

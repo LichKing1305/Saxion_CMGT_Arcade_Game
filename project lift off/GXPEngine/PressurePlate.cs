@@ -1,49 +1,53 @@
 ﻿using System;
 using GXPEngine;
 
-public class PressurePlate : Sprite 
+public class PressurePlate : Sprite
 {
-    Bear2 _bear2;
-    Bear _bear;
-    Level _nextlevel;
-    public string map = "levlemap.tmx";
-    bool _isActivated;
-
-    public PressurePlate(Bear bear, Bear2 bear2) : base("colors.png")
+    //private Bear _bear;
+    private Bear2 _bear2;
+    private string _map;
+    private bool _isActivated;
+    string menu = "menu.tmx";
+    public PressurePlate(/*Bear bear,*/Bear2 bear2, int x, int y, string map) : base("colors.png")
     {
+        //_bear = bear;
         _bear2 = bear2;
-        _bear = bear;
+        _map = map;
+        SetXY(x, y);
         _isActivated = false;
     }
 
     void Update()
     {
-        if (_bear.HitTest(this) || _bear2.HitTest(this))
+        if (/*_bear != null &&*/ _bear2 != null /*&& _bear.HitTest(this)*/ && _bear2.HitTest(this))
         {
-            activate();
+            Console.WriteLine("switching levels");
+            Console.WriteLine(_bear2);
+            Activate();
         }
         else
         {
-            deactivate();
+            Deactivate();
         }
     }
 
-    void activate()
+    void Activate()
     {
-        if (_isActivated == false)
+        Console.WriteLine("Level switch");
+        if (!_isActivated)
         {
-            Level level = new Level(map); 
+            RemoveChild(menu);
+            Level level = new Level(_map);
             _isActivated = true;
-            level.loadLevel();
+            level.LoadLevel();
         }
     }
 
-    void deactivate()
+    void Deactivate()
     {
-        if (_isActivated == true)
+        if (_isActivated)
         {
             _isActivated = false;
         }
     }
-
 }

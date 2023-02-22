@@ -3,20 +3,27 @@ using System;
 
 public class MyGame : Game
 {
-    private Level _level;
+    Level level;
     private Menu _menu;
+    Bear bear; 
+    Bear2 bear2;
     //EndScreen endscreen;
-    //HUD hud;
-    //string map = "levlemap.tmx";
+    HUD hud;
+    PressurePlate plate;
+    string map = "levlemap.tmx";
     //string _endscreen = "endscreen.tmx";
     string menu = "menu.tmx";
 
     public MyGame() : base(1920, 1080, false, true, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
     {
-        _menu = new Menu(menu);
-        //AddChild(_level);
-        //hud = new HUD(_level);
-        //AddChild(hud);
+        level = new Level(menu);
+        AddChild(level);
+        hud = new HUD(level);
+        AddChild(hud);
+        bear2 = new Bear2();
+        AddChild(bear2);
+        plate = new PressurePlate(bear2, 100, 600, map);
+        AddChild(plate);
         /*  endscreen = new EndScreen(_endscreen);
           AddChild(endscreen);*/
     }
