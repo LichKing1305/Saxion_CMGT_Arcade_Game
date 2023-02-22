@@ -13,6 +13,7 @@ public class Bear2 : AnimationSprite
     public int health = 1;
     const int cooldown = 2000;
     int zero;
+    int coinAmount = 0;
     /*------bool-----------*/
     public bool Player2Switch;
     bool frozeMovement = false;
@@ -21,7 +22,7 @@ public class Bear2 : AnimationSprite
     bool isJumping = false;
     bool isDead = false;
     bool isWalking = false;
-    public Bear2() : base("bear_sprite_retry_retry.png", 8, 5)
+    public Bear2() : base("bunny_animation_copy_to_be_save_copy.png", 8, 5)
     {
         y = 220;
         x = 300;
@@ -85,7 +86,7 @@ public class Bear2 : AnimationSprite
     {
         if (isJumping)
         {
-            isWalking= false;
+            isWalking = false;
             isIdle = false;
             isShooting = false;
             SetCycle(4, 5);
@@ -100,9 +101,18 @@ public class Bear2 : AnimationSprite
     /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void XMovement()
     {
-        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.MoveUntilCollision(movementXSpeed, 0); isWalking = true; }
-        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); MoveUntilCollision(-movementXSpeed, 0); isWalking = true; }
+        float oldx = x;
+        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); isWalking = true; }
+        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); Move(-movementXSpeed, 0); isWalking = true; }
         else { isIdle = true; isWalking = false; }
+        GameObject[] colied = GetCollisions();
+        for (int i = 0; i < colied.Length; i++)
+        {
+            if (colied[i] is Solid || colied[i] is Bear2)
+            {
+                x = oldx;
+            }
+        }
     }
     /*-------------------------------MOVEMENT CODE FOR Y DIRECTIONS-------------------------------------------------------*/
     void YMovement()
@@ -129,20 +139,22 @@ public class Bear2 : AnimationSprite
     void Shot()
     {
         // Console.WriteLine(x + ":" + y + ":frozeMovement:" + frozeMovement);
-        if (Input.GetKeyDown(Key.P))
+        if (Input.GetKeyDown(Key.P) && coinAmount >= 1)
         {
             isShooting = true;
             Screw screw = new Screw(_mirrorX ? -5 : 5);
             screw.SetXY(x + (_mirrorX ? -2 : 2) * (width / 2), y + (height / 2));
             parent.AddChild(screw);
             Console.WriteLine(screw.x + ":" + screw.y);
+            coinAmount--;
 
         }
     }
+
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-       // Console.WriteLine(isDead);
+        // Console.WriteLine(isDead);
         if (health < 1)
         { //Destroy();
             isIdle = false;
@@ -152,7 +164,7 @@ public class Bear2 : AnimationSprite
             {
                 DeathAnimation();
             }
-            
+
         }
     }
     /*------------------------ CODE FOR COLLIDING WITH COLLISIONS --------------------*/
@@ -163,6 +175,12 @@ public class Bear2 : AnimationSprite
         {
             frozeMovement = true;
         }
+        if (OtherThanBear is PickupCoin)
+        {
+            PickupCoin pickup = OtherThanBear as PickupCoin;
+            pickup.HasPickedUp = true;
+            coinAmount++;
+        }   
     }
     void RecovorMovement()
     {

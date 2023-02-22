@@ -65,7 +65,7 @@ public class Level : GameObject
         SpawnCoin();
         BackgourndMusic();
         SpawnBear2();
-        EndLevel();
+      //  EndLevel();
     }
     void startMusic()
     {
@@ -133,7 +133,7 @@ public class Level : GameObject
     {
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
-        else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
+       // else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
     }
 
 
