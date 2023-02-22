@@ -30,7 +30,7 @@ public class Bear : AnimationSprite
 
 
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
-    public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
+    public Bear(TiledObject obj = null) : base("bear_sprite_retry_retry.png", 8, 5)
     {
         // level = new Level(map);
         //filename = level._filename;
@@ -48,10 +48,7 @@ public class Bear : AnimationSprite
             //health = obj.GetIntProperty("health", 1);
         }
     }
-    public Bear() : base("bear_sprite_all.png", 8, 5)
-    {
-
-    }
+    
     void Update()
     {
         if (!isDead)

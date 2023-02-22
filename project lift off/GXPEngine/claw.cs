@@ -13,12 +13,8 @@ public class Claw : AnimationSprite
     Bear bear1 = new Bear();
     Bear2 bear2;
     bool isPickUpBear = false;
-    public Claw() : base("claw_sprite.png", 1, 1)
-    {
-       
-    }
-
-    public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
+   
+    public Claw(TiledObject obj = null) : base("claw_sprite.png", 4, 1)
     {
         bear2 = new Bear2();
         if (obj != null)

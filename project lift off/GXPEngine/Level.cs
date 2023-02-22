@@ -30,7 +30,7 @@ public class Level : GameObject
         startMusic();
         pickup = new PickupCoin();
         AddChild(pickup);
-        claw = new Claw("claw_sprite.png",4,1,null);
+        claw = new Claw();
         timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
     }
@@ -93,7 +93,7 @@ public class Level : GameObject
             loader.LoadObjectGroups();
             {
                 bear2 = new Bear2();
-                bear = new Bear("bear_sprite_all.png", 8, 5, null);
+                bear = new Bear();
             }
 
        // }
