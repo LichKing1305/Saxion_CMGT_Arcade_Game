@@ -60,6 +60,11 @@ public class Level : GameObject
         }
 
     }
+
+    void loadLevel() 
+    { 
+        
+    }
     void Update()
     {
         SpawnCoin();

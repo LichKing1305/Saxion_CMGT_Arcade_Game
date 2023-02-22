@@ -89,6 +89,7 @@
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Pickup.cs" />
+    <Compile Include="PressurePlate.cs" />
     <Compile Include="Screw.cs" />
     <Compile Include="Solid.cs" />
   </ItemGroup>
