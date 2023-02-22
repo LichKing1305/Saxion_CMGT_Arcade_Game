@@ -17,6 +17,27 @@ public class Claw : AnimationSprite
     {
        
     }
+
+    public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
+    {
+        bear2 = new Bear2();
+        if (obj != null)
+        {
+            dropSpeed = obj.GetFloatProperty("dropSpeed", 100f);
+            goUpSpeed = obj.GetFloatProperty("goUpSpeed", 3f);
+            movementSpeed = obj.GetFloatProperty("movementSpeed", 1.5f);
+        }
+    }
+
+    void OnCollision(GameObject OtherThanClaw)
+    {
+        if (OtherThanClaw is Bear||OtherThanClaw is Bear2)
+        {
+            isPickUpBear=true;   
+            PickupBearAnimation();
+        }
+
+    }
     void PickupBearAnimation()
     {
         /* if (isPickUpBear)
@@ -30,37 +51,16 @@ public class Claw : AnimationSprite
             SetCycle(0, 3);
             Animate(0.2f);
         }
-         /*   }
-            else if(currentFrame==2)
-            {
-                isPickUpBear=false;
-                SetCycle(0, 1);
-                Animate(0);
+        /*   }
+           else if(currentFrame==2)
+           {
+               isPickUpBear=false;
+               SetCycle(0, 1);
+               Animate(0);
 
-            }
-        }*/
+           }
+       }*/
     }
-    public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
-    {
-        bear2 = new Bear2();
-        if (obj != null)
-        {
-            dropSpeed = obj.GetFloatProperty("dropSpeed", 100f);
-            goUpSpeed = obj.GetFloatProperty("goUpSpeed", 3f);
-            movementSpeed = obj.GetFloatProperty("movementSpeed", 1.5f);
-        }
-    }
-    void OnCollision(GameObject OtherThanClaw)
-    {
-        if (OtherThanClaw is Bear||OtherThanClaw is Bear2)
-        {
-            isPickUpBear=true;   
-            PickupBearAnimation();
-        }
-
-    }
-   
-   
     void Update()
     {
       

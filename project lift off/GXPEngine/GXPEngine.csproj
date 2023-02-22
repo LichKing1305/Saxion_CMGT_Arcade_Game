@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Bear.cs" />
     <Compile Include="Bear2.cs" />
-    <Compile Include="claw.cs" />
+    <Compile Include="Claw.cs" />
     <Compile Include="EndScreen.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
