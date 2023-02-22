@@ -25,8 +25,8 @@ public class Bear2 : AnimationSprite
     {
         y = 220;
         x = 300;
-        width = 64;
-        height = 100;
+        width = 128;
+        height = 124;
 
     }
     void Update()
@@ -85,6 +85,7 @@ public class Bear2 : AnimationSprite
     {
         if (isJumping)
         {
+            isWalking= false;
             isIdle = false;
             isShooting = false;
             SetCycle(4, 5);

@@ -79,8 +79,8 @@ public class Level : GameObject
     }
     void createlevel()
     {
-        if (!_gameOver)
-        {
+      //  if (!_gameOver)
+        //{
             loader.addColliders = false;
             loader.LoadImageLayers();
             loader.addColliders = true;
@@ -92,7 +92,7 @@ public class Level : GameObject
                 bear = new Bear("bear_sprite_all.png", 8, 5, null);
             }
 
-        }
+       // }
 
     }
     void SpawnCoin()

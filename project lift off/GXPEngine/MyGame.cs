@@ -10,7 +10,7 @@ public class MyGame : Game
     string _endscreen = "endscreen.tmx";
     //string _menu = "menu.tmx";
 
-    public MyGame() : base(800, 600, false, true, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
+    public MyGame() : base(1920, 1080, false, true, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
     {
         _level = new Level(map);
         AddChild(_level);
