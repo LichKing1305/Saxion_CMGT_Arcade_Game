@@ -21,7 +21,7 @@ public class Bear2 : AnimationSprite
     bool isJumping = false;
     bool isDead = false;
     bool isWalking = false;
-    public Bear2() : base("bunny_sprite_sheet.png", 8, 5)
+    public Bear2() : base("bear_sprite_retry_retry.png", 8, 5)
     {
         y = 220;
         x = 300;
