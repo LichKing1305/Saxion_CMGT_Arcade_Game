@@ -8,7 +8,7 @@ public class Level : GameObject
     float _previousVolume;
     SoundChannel _musicChannel;
     TiledLoader loader;
-    // Level level;
+    Level _level;
     Bear bear;
     Claw claw;
     PickupCoin pickup;
@@ -22,8 +22,7 @@ public class Level : GameObject
     public string _filename;
     public int _cols;
     public int _rows;
-    //  Powerup power1;
-    //  public string map = "levlemap.tmx";
+    public string map = "levlemap.tmx";
     public Level(string filename)
     {
         loader = new TiledLoader(filename);
@@ -61,7 +60,7 @@ public class Level : GameObject
 
     }
 
-    void loadLevel() 
+    public void loadLevel() 
     { 
         
     }
@@ -71,6 +70,11 @@ public class Level : GameObject
         BackgourndMusic();
         SpawnBear2();
         EndLevel();
+
+        if (Input.GetKeyDown(Key.R))
+        {
+            ResetLevel();
+        }
     }
     void startMusic()
     {
@@ -140,11 +144,19 @@ public class Level : GameObject
         if (bear2.Player2Switch == true) { AddChild(bear2); }
         else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
     }
-
-
+    void ResetLevel()
+    {
+        if (_level != null)
+        {
+            RemoveChild(_level);
+            _level = null;
+        }
+        _level = new Level(map);
+        // AddChild(_level);
+    }
     void BackgourndMusic()
     {
-        if (Input.GetKeyDown(Key.N))
+        if (Input.GetKeyDown(Key.ONE))
         {
             if (_musicChannel.IsPlaying)
             {
@@ -155,21 +167,21 @@ public class Level : GameObject
                 startMusic();
             }
         }
-        if (Input.GetKeyDown(Key.NUMPAD_1))
+        if (Input.GetKeyDown(Key.TWO))
         {
             if (_musicChannel.Volume > 0)
             {
                 _musicChannel.Volume -= 0.25f;
             }
         }
-        if (Input.GetKeyDown(Key.FOUR))
+        if (Input.GetKeyDown(Key.THREE))
         {
             if (_musicChannel.Volume < 1.5f)
             {
                 _musicChannel.Volume += 0.25f;
             }
         }
-        if (Input.GetKeyDown(Key.NUMPAD_3))
+        if (Input.GetKeyDown(Key.FOUR))
         {
             if (_musicChannel.Volume > 0)
             {

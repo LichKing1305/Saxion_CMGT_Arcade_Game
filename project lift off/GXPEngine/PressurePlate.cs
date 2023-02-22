@@ -6,14 +6,14 @@ public class PressurePlate : Sprite
     Bear2 _bear2;
     Bear _bear;
     Level _nextlevel;
+    public string map = "levlemap.tmx";
     bool _isActivated;
 
-    public PressurePlate(Bear bear, Bear2 bear2, Level filename) : base("colors.png")
+    public PressurePlate(Bear bear, Bear2 bear2) : base("colors.png")
     {
         _bear2 = bear2;
         _bear = bear;
         _isActivated = false;
-        _nextLevel = filename;
     }
 
     void Update()
@@ -32,8 +32,9 @@ public class PressurePlate : Sprite
     {
         if (_isActivated == false)
         {
+            Level level = new Level(map); 
             _isActivated = true;
-            _nextLevel.LoadLevel();
+            level.loadLevel();
         }
     }
 
