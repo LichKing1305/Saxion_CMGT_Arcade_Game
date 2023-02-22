@@ -19,7 +19,12 @@ public class Bear : AnimationSprite
     int coinAmount;
     /*-------bool----*/
     bool frozeMovement = false;
-    bool death = true;
+    //bool death = true;
+    bool isDead = false;
+    bool isIdle = true;
+    bool isShooting = false;
+    bool isJumping = false;
+    bool isWalking = false;
 
     //Level level;
 
@@ -27,7 +32,7 @@ public class Bear : AnimationSprite
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
     public Bear(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
-       // level = new Level(map);
+        // level = new Level(map);
         //filename = level._filename;
         //cols = _cols;
         //rows = _rows;
@@ -43,43 +48,94 @@ public class Bear : AnimationSprite
             //health = obj.GetIntProperty("health", 1);
         }
     }
-   /* public Bear() : base("bear_sprite_all.png", 8, 5)
+    public Bear() : base("bear_sprite_all.png", 8, 5)
     {
 
-    }*/
-
+    }
     void Update()
     {
-        XMovement();
+        if (!isDead)
+        {
+            IdleAnimation();
+            XMovement();
+            Shot();
+            RecovorMovement();
+            ShotAnimation();
+            JumpAnimation();
+            WalkAnimation();
+
+        }
         YMovement();
         Death();
-        Shot();
-        RecovorMovement();
+
         // Musics();
     }
-    /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
     void WalkAnimation()
     {
-        SetCycle(0, 4); Animate(0.5f);
+        if (isWalking)
+        {
+            isJumping = false;
+            isIdle = false;
+            SetCycle(0, 4);
+            Animate(0.3f);
+        }
     }
-    void JumpAnimation()
+    void IdleAnimation()
     {
-        SetCycle(4, 4); Animate(0.1f);
+        if (isIdle)
+        {
+            SetCycle(8, 4);
+            Animate(0.1f);
+
+        }
+    }
+    void ShotAnimation()
+    {
+        if (isShooting)
+        {
+            isWalking = false;
+            isIdle = false;
+            SetCycle(27, 10);
+            Animate(0.16f);
+            if (currentFrame == 36) { isShooting = false; }
+
+        }
     }
     void DeathAnimation()
     {
         SetCycle(12, 8); Animate(0.1f); //death = false;
 
     }
+    void JumpAnimation()
+    {
+        if (isJumping)
+        {
+            isWalking = false;
+            isIdle = false;
+            isShooting = false;
+            SetCycle(4, 5);
+            Animate(0.04f);
+            Console.WriteLine(currentFrame);
+            if (currentFrame == 8)
+            {
+                isJumping = false;
+            }
+        }
+    }
+
+ 
+    /*-------------------------------MOVEMENT CODE FOR X DIRECTIONS---------------------------------------------------------*/
+  
     void XMovement()
     {
         float oldx = x;
-        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); WalkAnimation(); }
-        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); WalkAnimation(); }
+        if (Input.GetKey(Key.D)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); isWalking = true; }
+        else if (Input.GetKey(Key.A)) { this.Mirror(true, false); Move(-movementXSpeed, 0); isWalking = true; }
+        else { isIdle = true; isWalking = false; }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
-            if (colied[i] is Solid || colied[i] is Bear2)
+            if (colied[i] is Solid)
             {
                 x = oldx;
             }
@@ -91,7 +147,6 @@ public class Bear : AnimationSprite
         float oldy = y;
         initialDropSpeed += dropSpeed;
         y += initialDropSpeed;
-        if (Input.GetKey(Key.W)) { JumpAnimation(); }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
@@ -102,7 +157,7 @@ public class Bear : AnimationSprite
                 if (Input.GetKey(Key.W))
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
-
+                    isJumping = true;
                 }
             }
         }
@@ -112,6 +167,7 @@ public class Bear : AnimationSprite
     {
         if (Input.GetKeyDown(Key.F) && coinAmount >= 1)
         {
+            isShooting = true;
             Screw screw = new Screw(_mirrorX ? -5 : 5);
             screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
@@ -127,13 +183,15 @@ public class Bear : AnimationSprite
     {
 
         if (health < 1)
-        {
-            //  Console.WriteLine(currentFrame);
-
+        { //Destroy();
+            isIdle = false;
+            isJumping = false;
+            isDead = true;
             if (currentFrame != 19)
+            {
                 DeathAnimation();
-            //}
-            // else { SetCycle(20, 0); Animate(0f); }
+            }
+
         }
 
         // Console.WriteLine(health);

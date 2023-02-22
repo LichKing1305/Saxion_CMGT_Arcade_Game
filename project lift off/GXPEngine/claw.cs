@@ -10,13 +10,36 @@ public class Claw : AnimationSprite
     float movementSpeed = 1.5f;
     float dropSpeed = 10f;
     float goUpSpeed = 3f;
-   // Bear bear1 = new Bear();
+    Bear bear1 = new Bear();
     Bear2 bear2;
-    public Claw() : base("triangle.png", 1, 1)
+    bool isPickUpBear = false;
+    public Claw() : base("claw_sprite.png", 1, 1)
     {
        
     }
+    void PickupBearAnimation()
+    {
+        /* if (isPickUpBear)
+         {
 
+             Console.WriteLine(currentFrame);
+             if (isPickUpBear)
+             {*/
+        if (currentFrame != 2)
+        {
+            SetCycle(0, 3);
+            Animate(0.2f);
+        }
+         /*   }
+            else if(currentFrame==2)
+            {
+                isPickUpBear=false;
+                SetCycle(0, 1);
+                Animate(0);
+
+            }
+        }*/
+    }
     public Claw(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
         bear2 = new Bear2();
@@ -27,7 +50,15 @@ public class Claw : AnimationSprite
             movementSpeed = obj.GetFloatProperty("movementSpeed", 1.5f);
         }
     }
+    void OnCollision(GameObject OtherThanClaw)
+    {
+        if (OtherThanClaw is Bear||OtherThanClaw is Bear2)
+        {
+            isPickUpBear=true;   
+            PickupBearAnimation();
+        }
 
+    }
    
    
     void Update()
@@ -35,6 +66,7 @@ public class Claw : AnimationSprite
       
         XMovement();
         YMovement();
+        //PickupBearAnimation();
         /*if (bear1.health <= 0 && bear2.health <= 0)
         {
             _gameOver = true;
@@ -71,6 +103,8 @@ public class Claw : AnimationSprite
             {
                 dropSwitch = true;
                 y -= goUpSpeed;
+                SetCycle(3, 1);
+                Animate(0.1f);
             }
         }
     }

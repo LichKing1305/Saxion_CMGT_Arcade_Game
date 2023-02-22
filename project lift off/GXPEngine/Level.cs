@@ -8,7 +8,7 @@ public class Level : GameObject
     float _previousVolume;
     SoundChannel _musicChannel;
     TiledLoader loader;
-    Level _level;
+    // Level level;
     Bear bear;
     Claw claw;
     PickupCoin pickup;
@@ -22,7 +22,8 @@ public class Level : GameObject
     public string _filename;
     public int _cols;
     public int _rows;
-    public string map = "levlemap.tmx";
+    //  Powerup power1;
+    //  public string map = "levlemap.tmx";
     public Level(string filename)
     {
         loader = new TiledLoader(filename);
@@ -69,12 +70,7 @@ public class Level : GameObject
         SpawnCoin();
         BackgourndMusic();
         SpawnBear2();
-        EndLevel();
-
-        if (Input.GetKeyDown(Key.R))
-        {
-            ResetLevel();
-        }
+      //  EndLevel();
     }
     void startMusic()
     {
@@ -154,9 +150,11 @@ public class Level : GameObject
             AddChild(_level);
         }
     }
+
+
     void BackgourndMusic()
     {
-        if (Input.GetKeyDown(Key.ONE))
+        if (Input.GetKeyDown(Key.N))
         {
             if (_musicChannel.IsPlaying)
             {
@@ -167,21 +165,21 @@ public class Level : GameObject
                 startMusic();
             }
         }
-        if (Input.GetKeyDown(Key.TWO))
+        if (Input.GetKeyDown(Key.NUMPAD_1))
         {
             if (_musicChannel.Volume > 0)
             {
                 _musicChannel.Volume -= 0.25f;
             }
         }
-        if (Input.GetKeyDown(Key.THREE))
+        if (Input.GetKeyDown(Key.FOUR))
         {
             if (_musicChannel.Volume < 1.5f)
             {
                 _musicChannel.Volume += 0.25f;
             }
         }
-        if (Input.GetKeyDown(Key.FOUR))
+        if (Input.GetKeyDown(Key.NUMPAD_3))
         {
             if (_musicChannel.Volume > 0)
             {

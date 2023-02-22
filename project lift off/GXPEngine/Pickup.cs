@@ -5,7 +5,7 @@ class PickupCoin : AnimationSprite
     public bool HasPickedUp = false;
    
 
-    public PickupCoin() : base("coin.jpg", 1, 1)
+    public PickupCoin() : base("coin_sprite.png", 4, 1)
     {
         // SpawnCoin();
         x = Utils.Random(64, game.width - 64);
@@ -14,11 +14,16 @@ class PickupCoin : AnimationSprite
 
     void Update()
     {
-      //  Console.WriteLine(Time.time+":time"+timeFollower+":timeFollower");
-       // SpawnCoin();
+        //  Console.WriteLine(Time.time+":time"+timeFollower+":timeFollower");
+        // SpawnCoin();
+        IdleCoin();
     }
 
-   
+   void IdleCoin()
+    {
+        SetCycle(0, 4);
+        Animate(0.125f);
+    }
     public void PickedUp()
     {
         
