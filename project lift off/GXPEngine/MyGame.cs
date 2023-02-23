@@ -9,7 +9,7 @@ public class MyGame : Game
     string levelToLoad;
     Level level;
     private Menu _menu;
-    Bear bear; 
+    Bear bear;
     Bear2 bear2;
     //EndScreen endscreen;
     HUD hud;
@@ -29,8 +29,8 @@ public class MyGame : Game
         //AddChild(hud);
         //bear2 = new Bear2();
         //AddChild(bear2);
-       // plate = new PressurePlate(bear2, 100, 600, map);
-       // AddChild(plate);
+        // plate = new PressurePlate(bear2, 100, 600, map);
+        // AddChild(plate);
         startMusic();
         nextLevel = null;
         /*  endscreen = new EndScreen(_endscreen);
@@ -96,8 +96,8 @@ public class MyGame : Game
             child.Destroy();
         }
     }
-    void CheckLoadLevel()
-    {
+    public void CheckLoadLevel()
+    {/*
         if (levelToLoad != null)
         {
             DestroyAll();
@@ -106,14 +106,18 @@ public class MyGame : Game
                 AddChild(new HUD(level));
             levelToLoad = null;
         }
-        /*if (nextLevel != null)
+        */
+        if (nextLevel != null)
         {
+            //Console.WriteLine("Destroying current level" );
+            //RemoveChild( level );
             DestroyAll();
-            AddChild(new Level(nextLevel));
-            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-                AddChild(new HUD(level));
+            AddChild( level = new Level( nextLevel ) );
+            //if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
+            //    AddChild(new HUD(level));
+            Console.WriteLine("Loaded new level");
             nextLevel = null;
-        }*/
+        }
     }
 
     public void LoadLevel(string filename, bool shouldResetPlayerData = false, string soundFile = "BackgroundMusic.ogg")
@@ -125,7 +129,7 @@ public class MyGame : Game
         levelToLoad = filename;
         currentLevel = filename;
         //if (shouldResetPlayerData)
-            //playerData.Reset();
+        //playerData.Reset();
     }
     void startMusic()
     {
@@ -144,7 +148,8 @@ public class MyGame : Game
             ResetLevel();
         }*/
         BackgroundMusic();
-        
+        CheckLoadLevel();
+
     }
     static void Main()     // Main() is the first method that's called when the program is run
     {

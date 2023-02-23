@@ -12,7 +12,7 @@ class Solid : AnimationSprite
     {
 
         //  Console.WriteLine("coolide");
-        Console.WriteLine("github");
+        //Console.WriteLine("github");
     }
 }
 

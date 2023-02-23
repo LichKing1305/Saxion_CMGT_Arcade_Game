@@ -37,6 +37,8 @@ public class Bear : AnimationSprite
         //filename = level._filename;
         //cols = _cols;
         //rows = _rows;
+        x = 1000;
+
         y = game.height - height;
         initialMovementXSpeed = movementXSpeed;
         bearwalk = new Sound("bear_walk_sound.wav", true, false);

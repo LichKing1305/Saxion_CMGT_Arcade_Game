@@ -6,6 +6,7 @@ public class Level : GameObject
 {   
     TiledLoader loader;
     private Level _level;
+
     Bear bear;
     Claw claw;
     PickupCoin pickup;
@@ -22,6 +23,7 @@ public class Level : GameObject
     public string map = "levlemap.tmx";
     public Level(string filename)
     {
+        Console.WriteLine( " Loading level {0}", filename );
         loader = new TiledLoader(filename);
         createlevel();
         pickup = new PickupCoin();
@@ -51,7 +53,6 @@ public class Level : GameObject
         }
         else
         {
-            Console.WriteLine(bear.health);
             lastScore = _score;
         }
 

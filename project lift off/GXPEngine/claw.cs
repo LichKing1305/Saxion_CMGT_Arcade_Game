@@ -10,7 +10,7 @@ public class Claw : AnimationSprite
     float movementSpeed = 1.5f;
     float dropSpeed = 10f;
     float goUpSpeed = 3f;
-    Bear bear1 = new Bear();
+
     Bear2 bear2;
     bool isPickUpBear = false;
    
