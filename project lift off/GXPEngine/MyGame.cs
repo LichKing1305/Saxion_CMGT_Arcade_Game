@@ -8,12 +8,7 @@ public class MyGame : Game
     string currentLevel;
     string levelToLoad;
     Level level;
-    private Menu _menu;
-    Bear bear;
-    Bear2 bear2;
-    //EndScreen endscreen;
-    HUD hud;
-    PressurePlate plate;
+    Menu _menu;
     string map = "levlemap.tmx";
     string endscreen = "endscreen.tmx";
     string menu = "menu.tmx";
@@ -23,8 +18,8 @@ public class MyGame : Game
 
     public MyGame() : base(1920, 1080, false, false, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
     {
-        level = new Level(menu);
-        AddChild(level);
+        _menu = new Menu(menu);
+        AddChild(_menu);
         //hud = new HUD(level);
         //AddChild(hud);
         //bear2 = new Bear2();
@@ -112,7 +107,7 @@ public class MyGame : Game
             //Console.WriteLine("Destroying current level" );
             //RemoveChild( level );
             DestroyAll();
-            AddChild( level = new Level( nextLevel ) );
+            AddChild( level = new Level("levlemap.tmx") );
             //if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
             //    AddChild(new HUD(level));
             Console.WriteLine("Loaded new level");
