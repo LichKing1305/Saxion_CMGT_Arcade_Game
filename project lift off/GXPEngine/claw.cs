@@ -1,7 +1,5 @@
 
 using GXPEngine;
-using System;
-using System.Threading;
 using TiledMapParser;
 
 public class Claw : AnimationSprite
@@ -11,15 +9,11 @@ public class Claw : AnimationSprite
     float dropSpeed = 10f;
     float goUpSpeed = 3f;
 
-    Bear2 bear2;
-    bool isPickUpBear = false;
-   
     public Claw(TiledObject obj = null) : base("claw_sprite.png", 4, 1)
     {
-        bear2 = new Bear2();
         if (obj != null)
         {
-            dropSpeed = obj.GetFloatProperty("dropSpeed", 100f);
+            dropSpeed = obj.GetFloatProperty("dropSpeed", 150f);
             goUpSpeed = obj.GetFloatProperty("goUpSpeed", 3f);
             movementSpeed = obj.GetFloatProperty("movementSpeed", 1.5f);
         }
@@ -27,52 +21,40 @@ public class Claw : AnimationSprite
 
     void OnCollision(GameObject OtherThanClaw)
     {
-        if (OtherThanClaw is Bear||OtherThanClaw is Bear2)
+        if (OtherThanClaw is Bear || OtherThanClaw is Bear2)
         {
-            isPickUpBear=true;   
             PickupBearAnimation();
         }
 
     }
     void PickupBearAnimation()
     {
-        /* if (isPickUpBear)
-         {
-
-             Console.WriteLine(currentFrame);
-             if (isPickUpBear)
-             {*/
         if (currentFrame != 2)
         {
             SetCycle(0, 3);
             Animate(0.2f);
         }
-        /*   }
-           else if(currentFrame==2)
-           {
-               isPickUpBear=false;
-               SetCycle(0, 1);
-               Animate(0);
-
-           }
-       }*/
     }
     void Update()
     {
-      
         XMovement();
         YMovement();
-        //PickupBearAnimation();
-        /*if (bear1.health <= 0 && bear2.health <= 0)
-        {
-            _gameOver = true;
-        }*/
 
     }
+
     void XMovement()
-    {     
-        if (Input.GetKey(Key.RIGHT)) { MoveUntilCollision(movementSpeed, 0); }
-        else if (Input.GetKey(Key.LEFT)) { MoveUntilCollision(-movementSpeed, 0); }
+    {
+        if (Input.GetKey(Key.RIGHT))
+        {
+            MoveUntilCollision(movementSpeed, 0);
+
+        }
+        else if (Input.GetKey(Key.LEFT))
+        {
+            MoveUntilCollision(-movementSpeed, 0);
+
+        }
+
     }
     void YMovement()
     {
@@ -95,7 +77,7 @@ public class Claw : AnimationSprite
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
         {
-            if (colied[i] is Solid )
+            if (colied[i] is Solid)
             {
                 dropSwitch = true;
                 y -= goUpSpeed;
@@ -105,7 +87,7 @@ public class Claw : AnimationSprite
         }
     }
 
-   
+
 }
 
 

@@ -172,7 +172,7 @@ public class Bear2 : AnimationSprite
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        // Console.WriteLine(isDead);
+        Console.WriteLine(health);
         if (health < 1)
         { //Destroy();
             isIdle = false;
@@ -199,6 +199,7 @@ public class Bear2 : AnimationSprite
             pickup.HasPickedUp = true;
             coinAmount++;
             isPickedup = true;
+            health +=99;
         }
         if (OtherThanBear is PressurePlate)
         {
