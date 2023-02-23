@@ -25,10 +25,10 @@ public class MyGame : Game
     {
         level = new Level(menu);
         AddChild(level);
-        hud = new HUD(level);
-        AddChild(hud);
-        bear2 = new Bear2();
-        AddChild(bear2);
+        //hud = new HUD(level);
+        //AddChild(hud);
+        //bear2 = new Bear2();
+        //AddChild(bear2);
        // plate = new PressurePlate(bear2, 100, 600, map);
        // AddChild(plate);
         startMusic();
