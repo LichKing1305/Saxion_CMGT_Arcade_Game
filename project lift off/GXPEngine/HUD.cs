@@ -6,9 +6,11 @@ using System.Drawing;
 
 namespace GXPEngine
 {
+    
 
     public class HUD : Canvas
     {
+        Font myFont = Utils.LoadFont("DS-DIGI.TTF", 12.0f, FontStyle.Regular);
         private Level level;
         public HUD(Level _level) : base(256, 128, false)
         {
@@ -18,7 +20,7 @@ namespace GXPEngine
         void Update()
         {
             graphics.Clear(Color.Empty);
-            graphics.DrawString("Time: " + level.GetScore(), SystemFonts.DefaultFont, Brushes.White, 75, 0);
+            graphics.DrawString("Time: " + level.GetScore(), myFont, Brushes.Red, 75, 0);
         }
     }
 }

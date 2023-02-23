@@ -3,11 +3,7 @@ using System;
 using System.Threading;
 using TiledMapParser;
 public class Level : GameObject
-{
-   
-    Sound _music;
-    float _previousVolume;
-    SoundChannel _musicChannel;
+{   
     TiledLoader loader;
     private Level _level;
     Bear bear;
@@ -28,7 +24,6 @@ public class Level : GameObject
     {
         loader = new TiledLoader(filename);
         createlevel();
-        startMusic();
         pickup = new PickupCoin();
         AddChild(pickup);
         claw = new Claw();
@@ -69,20 +64,10 @@ public class Level : GameObject
     void Update()
     {
         SpawnCoin();
-        BackgourndMusic();
      //   SpawnBear2();
       //  EndLevel();
     }
-    void startMusic()
-    {
-        _music = new Sound("BGMusic.wav", true, true);
-        _musicChannel = _music.Play();
-    }
 
-    void stopMusic()
-    {
-        _musicChannel.Stop();
-    }
     void createlevel()
     {
       //  if (!_gameOver)
@@ -151,49 +136,6 @@ public class Level : GameObject
             _level = new Level(map);
             AddChild(_level);
         }
-    }
-
-
-    void BackgourndMusic()
-    {
-        if (Input.GetKeyDown(Key.N))
-        {
-            if (_musicChannel.IsPlaying)
-            {
-                stopMusic();
-            }
-            else
-            {
-                startMusic();
-            }
-        }
-        if (Input.GetKeyDown(Key.FIVE))
-        {
-            if (_musicChannel.Volume > 0)
-            {
-                _musicChannel.Volume -= 0.25f;
-            }
-        }
-        if (Input.GetKeyDown(Key.FOUR))
-        {
-            if (_musicChannel.Volume < 1.5f)
-            {
-                _musicChannel.Volume += 0.25f;
-            }
-        }
-        if (Input.GetKeyDown(Key.NUMPAD_3))
-        {
-            if (_musicChannel.Volume > 0)
-            {
-                _previousVolume = _musicChannel.Volume;
-                _musicChannel.Volume = 0;
-            }
-            else
-            {
-                _musicChannel.Volume = _previousVolume;
-            }
-        }
-
     }
     void EndLevel()
     {

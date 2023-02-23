@@ -13,6 +13,9 @@ public class MyGame : Game
     string map = "levlemap.tmx";
     //string _endscreen = "endscreen.tmx";
     string menu = "menu.tmx";
+    Sound _music;
+    float _previousVolume;
+    SoundChannel _musicChannel;
 
     public MyGame() : base(1920, 1080, false, false, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
     {
@@ -24,6 +27,7 @@ public class MyGame : Game
         AddChild(bear2);
         plate = new PressurePlate(bear2, 100, 600, map);
         AddChild(plate);
+        startMusic();
         /*  endscreen = new EndScreen(_endscreen);
           AddChild(endscreen);*/
     }
@@ -33,13 +37,65 @@ public class MyGame : Game
         Console.WriteLine("keyRelease");
 
     }
+    void BackgroundMusic()
+    {
+        if (Input.GetKeyDown(Key.N))
+        {
+            if (_musicChannel.IsPlaying)
+            {
+                stopMusic();
+            }
+            else
+            {
+                startMusic();
+            }
+        }
+        if (Input.GetKeyDown(Key.FIVE))
+        {
+            if (_musicChannel.Volume > 0)
+            {
+                _musicChannel.Volume -= 0.25f;
+            }
+        }
+        if (Input.GetKeyDown(Key.FOUR))
+        {
+            if (_musicChannel.Volume < 1.5f)
+            {
+                _musicChannel.Volume += 0.25f;
+            }
+        }
+        if (Input.GetKeyDown(Key.NUMPAD_3))
+        {
+            if (_musicChannel.Volume > 0)
+            {
+                _previousVolume = _musicChannel.Volume;
+                _musicChannel.Volume = 0;
+            }
+            else
+            {
+                _musicChannel.Volume = _previousVolume;
+            }
+        }
 
+    }
+    void startMusic()
+    {
+        _music = new Sound("BGMusic.wav", true, true);
+        _musicChannel = _music.Play();
+    }
+
+    void stopMusic()
+    {
+        _musicChannel.Stop();
+    }
     void Update()
     {
         /*if (Input.GetKeyDown(Key.R))
         {
             ResetLevel();
         }*/
+        BackgroundMusic();
+        
     }
     static void Main()     // Main() is the first method that's called when the program is run
     {
