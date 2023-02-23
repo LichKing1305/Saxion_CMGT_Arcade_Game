@@ -68,7 +68,7 @@ public class Bear : AnimationSprite
         YMovement();
         Death();
 
-        // Musics();
+       
     }
     void WalkAnimation()
     {
@@ -115,7 +115,6 @@ public class Bear : AnimationSprite
             isShooting = false;
             SetCycle(4, 5);
             Animate(0.04f);
-            Console.WriteLine(currentFrame);
             if (currentFrame == 8)
             {
                 isJumping = false;
@@ -168,12 +167,10 @@ public class Bear : AnimationSprite
         if (Input.GetKeyDown(Key.F) && coinAmount >= 1)
         {
             isShooting = true;
-            Screw screw = new Screw(_mirrorX ? -5 : 5);
+            Screw screw = new Screw(_mirrorX ? -25 : 25);
             screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height / 2));
             parent.AddChild(screw);
             coinAmount--;
-            Console.WriteLine("shoting");
-            SetCycle(28, 5); Animate(0.5f);
         }
 
 

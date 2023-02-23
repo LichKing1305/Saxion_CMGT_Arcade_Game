@@ -160,10 +160,9 @@ public class Bear2 : AnimationSprite
         if (Input.GetKeyDown(Key.P) && coinAmount >= 1)
         {
             isShooting = true;
-            Screw screw = new Screw(_mirrorX ? -5 : 5);
-            screw.SetXY(x + (_mirrorX ? -2 : 2) * (width / 2), y + (height / 2));
+            Screw screw = new Screw(_mirrorX ? -25 : 25);
+            screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y + (height / 2));
             parent.AddChild(screw);
-            Console.WriteLine(screw.x + ":" + screw.y);
             coinAmount--;
 
         }

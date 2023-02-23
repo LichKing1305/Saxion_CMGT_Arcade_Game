@@ -71,7 +71,7 @@ public class Level : GameObject
         //{
             loader.addColliders = false;
           loader.LoadImageLayers();
-            loader.addColliders = true;
+            loader.addColliders = false;
             loader.LoadTileLayers();
             loader.autoInstance = true;
             loader.LoadObjectGroups();

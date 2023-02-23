@@ -9,8 +9,8 @@ class PickupCoin : AnimationSprite
     {
         pickupSound = new Sound("ping.wav", false, false);
         // SpawnCoin();
-        x = Utils.Random(64, game.width - 64);
-        y = Utils.Random(400, game.height - 64);
+       x = Utils.Random(64, (game.width - (128 + width)));
+       y = Utils.Random(400, (game.height - (128 + height)));
     }
 
     void Update()
