@@ -8,7 +8,7 @@ public class Bear2 : AnimationSprite
     /*-------flaot-------------*/
     float initialDropSpeed;
     float dropSpeed = 0.2f;
-    float movementXSpeed = 1.5f;
+    float movementXSpeed = 3.5f;
     float movementXSpeedDecrease = 0.5f;
     float jumpSpeed = 10f;
     /*-------int------------*/

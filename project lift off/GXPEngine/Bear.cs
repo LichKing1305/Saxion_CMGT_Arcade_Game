@@ -47,7 +47,7 @@ public class Bear : AnimationSprite
         {
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
             jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
-            movementXSpeed = obj.GetFloatProperty("movementXSpeed", 2.5f);
+            movementXSpeed = obj.GetFloatProperty("movementXSpeed", 3.5f);
             //health = obj.GetIntProperty("health", 1);
         }
     }
