@@ -200,6 +200,10 @@ public class Bear2 : AnimationSprite
             coinAmount++;
             isPickedup = true;
         }
+        if (OtherThanBear is PressurePlate)
+        {
+            ((PressurePlate)OtherThanBear).Activate();
+        }
     }
     void RecovorMovement()
     {

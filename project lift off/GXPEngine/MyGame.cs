@@ -1,8 +1,12 @@
 using GXPEngine;
 using System;
+using System.Collections.Generic;
 
 public class MyGame : Game
 {
+    string nextLevel;
+    string currentLevel;
+    string levelToLoad;
     Level level;
     private Menu _menu;
     Bear bear; 
@@ -11,7 +15,7 @@ public class MyGame : Game
     HUD hud;
     PressurePlate plate;
     string map = "levlemap.tmx";
-    //string _endscreen = "endscreen.tmx";
+    string endscreen = "endscreen.tmx";
     string menu = "menu.tmx";
     Sound _music;
     float _previousVolume;
@@ -25,9 +29,10 @@ public class MyGame : Game
         AddChild(hud);
         bear2 = new Bear2();
         AddChild(bear2);
-        plate = new PressurePlate(bear2, 100, 600, map);
-        AddChild(plate);
+       // plate = new PressurePlate(bear2, 100, 600, map);
+       // AddChild(plate);
         startMusic();
+        nextLevel = null;
         /*  endscreen = new EndScreen(_endscreen);
           AddChild(endscreen);*/
     }
@@ -77,6 +82,50 @@ public class MyGame : Game
             }
         }
 
+    }
+
+    public void LoadLevel(string filename)
+    {
+        nextLevel = filename ;
+    }
+    void DestroyAll()
+    {
+        List<GameObject> children = GetChildren();
+        foreach (GameObject child in children)
+        {
+            child.Destroy();
+        }
+    }
+    void CheckLoadLevel()
+    {
+        if (levelToLoad != null)
+        {
+            DestroyAll();
+            AddChild(new Level(levelToLoad));
+            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
+                AddChild(new HUD(level));
+            levelToLoad = null;
+        }
+        /*if (nextLevel != null)
+        {
+            DestroyAll();
+            AddChild(new Level(nextLevel));
+            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
+                AddChild(new HUD(level));
+            nextLevel = null;
+        }*/
+    }
+
+    public void LoadLevel(string filename, bool shouldResetPlayerData = false, string soundFile = "BackgroundMusic.ogg")
+    {
+        if (_musicChannel != null)
+            _musicChannel.Stop();
+        Sound backgroundMusic = new Sound(soundFile);
+        _musicChannel = backgroundMusic.Play();
+        levelToLoad = filename;
+        currentLevel = filename;
+        //if (shouldResetPlayerData)
+            //playerData.Reset();
     }
     void startMusic()
     {

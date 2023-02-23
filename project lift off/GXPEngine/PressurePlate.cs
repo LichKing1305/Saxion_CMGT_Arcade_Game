@@ -1,25 +1,29 @@
 ﻿using System;
+using TiledMapParser;
 using GXPEngine;
 
 public class PressurePlate : Sprite
 {
-    //private Bear _bear;
+    private Bear _bear;
     private Bear2 _bear2;
     private string _map;
     private bool _isActivated;
+    string nextLevel;
     string menu = "menu.tmx";
-    public PressurePlate(/*Bear bear,*/Bear2 bear2, int x, int y, string map) : base("colors.png")
+    public PressurePlate(/*Bear bear,Bear2 bear2, int x, int y, string map,*/ TiledObject obj =null) : base("colors.png")
     {
+        nextLevel = obj.GetStringProperty("nextLevel", "menu");
+        collider.isTrigger = true;
         //_bear = bear;
-        _bear2 = bear2;
-        _map = map;
+        //_bear2 = bear2;
+       // _map = map;
         SetXY(x, y);
         _isActivated = false;
     }
 
     void Update()
     {
-        if (/*_bear != null &&*/ _bear2 != null /*&& _bear.HitTest(this)*/ && _bear2.HitTest(this))
+        if (_bear != null && _bear2 != null && _bear.HitTest(this) && _bear2.HitTest(this))
         {
             Console.WriteLine("switching levels");
             Console.WriteLine(_bear2);
@@ -31,14 +35,15 @@ public class PressurePlate : Sprite
         }
     }
 
-    void Activate()
+    public void Activate()
     {
         Console.WriteLine("Level switch");
         if (!_isActivated)
         {
-            Level level = new Level(_map);
+            /*Level level = new Level(_map);
             _isActivated = true;
-            level.LoadLevel();
+            level.LoadLevel();*/
+            ((MyGame)game).LoadLevel(nextLevel + " .tmx");
         }
     }
 

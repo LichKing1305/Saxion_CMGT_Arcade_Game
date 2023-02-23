@@ -57,10 +57,6 @@ public class Level : GameObject
 
     }
 
-    public void LoadLevel() 
-    { 
-        
-    }
     void Update()
     {
         SpawnCoin();
@@ -78,6 +74,7 @@ public class Level : GameObject
             loader.LoadTileLayers();
             loader.autoInstance = true;
             loader.LoadObjectGroups();
+            loader.rootObject = this;
             {
                 bear2 = new Bear2();
                 bear = new Bear();

@@ -208,6 +208,10 @@ public class Bear : AnimationSprite
             pickup.HasPickedUp = true;
             coinAmount++;
         }
+        if(OtherThanBear is PressurePlate) 
+        {
+            ((PressurePlate)OtherThanBear).Activate();
+        }
     }
     void RecovorMovement()
     {
