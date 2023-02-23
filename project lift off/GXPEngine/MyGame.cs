@@ -20,22 +20,8 @@ public class MyGame : Game
     {
         _menu = new Menu(menu);
         AddChild(_menu);
-        //hud = new HUD(level);
-        //AddChild(hud);
-        //bear2 = new Bear2();
-        //AddChild(bear2);
-        // plate = new PressurePlate(bear2, 100, 600, map);
-        // AddChild(plate);
         startMusic();
         nextLevel = null;
-        /*  endscreen = new EndScreen(_endscreen);
-          AddChild(endscreen);*/
-    }
-
-    void KeyReleased()
-    {
-        Console.WriteLine("keyRelease");
-
     }
     void BackgroundMusic()
     {
@@ -92,25 +78,11 @@ public class MyGame : Game
         }
     }
     public void CheckLoadLevel()
-    {/*
-        if (levelToLoad != null)
-        {
-            DestroyAll();
-            AddChild(new Level(levelToLoad));
-            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-                AddChild(new HUD(level));
-            levelToLoad = null;
-        }
-        */
+    {
         if (nextLevel != null)
         {
-            //Console.WriteLine("Destroying current level" );
-            //RemoveChild( level );
             DestroyAll();
             AddChild( level = new Level("levlemap.tmx") );
-            //if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-            //    AddChild(new HUD(level));
-            Console.WriteLine("Loaded new level");
             nextLevel = null;
         }
     }
@@ -123,8 +95,6 @@ public class MyGame : Game
         _musicChannel = backgroundMusic.Play();
         levelToLoad = filename;
         currentLevel = filename;
-        //if (shouldResetPlayerData)
-        //playerData.Reset();
     }
     void startMusic()
     {
