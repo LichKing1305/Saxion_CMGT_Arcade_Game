@@ -5,6 +5,7 @@ using TiledMapParser;
 public class Bear : AnimationSprite
 {
     Sound bearwalk;
+   
     /*----------floats---------*/
     float initialDropSpeed = 0;
     float jumpSpeed;
@@ -151,7 +152,7 @@ public class Bear : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKey(Key.W))
+                if (Input.GetKeyDown(Key.W) && !isDead)
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
                     isJumping = true;

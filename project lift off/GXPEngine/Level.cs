@@ -4,6 +4,7 @@ using System.Threading;
 using TiledMapParser;
 public class Level : GameObject
 {
+   
     Sound _music;
     float _previousVolume;
     SoundChannel _musicChannel;
@@ -33,6 +34,7 @@ public class Level : GameObject
         claw = new Claw();
         timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
+       
     }
     public int GetScore()
     {
@@ -68,7 +70,7 @@ public class Level : GameObject
     {
         SpawnCoin();
         BackgourndMusic();
-        SpawnBear2();
+     //   SpawnBear2();
       //  EndLevel();
     }
     void startMusic()
@@ -86,7 +88,7 @@ public class Level : GameObject
       //  if (!_gameOver)
         //{
             loader.addColliders = false;
-            //loader.LoadImageLayers();
+          loader.LoadImageLayers();
             loader.addColliders = true;
             loader.LoadTileLayers();
             loader.autoInstance = true;
@@ -129,6 +131,7 @@ public class Level : GameObject
             // timeFollower = Time.time;
             // pickup.HasPickedUp = false;
             this.RemoveChild(pickup);
+          
             //   pickup= null;
 
         }
@@ -164,7 +167,7 @@ public class Level : GameObject
                 startMusic();
             }
         }
-        if (Input.GetKeyDown(Key.NUMPAD_1))
+        if (Input.GetKeyDown(Key.FIVE))
         {
             if (_musicChannel.Volume > 0)
             {

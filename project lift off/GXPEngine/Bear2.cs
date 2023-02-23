@@ -1,8 +1,10 @@
 using GXPEngine;
 using System;
+using TiledMapParser;
 
 public class Bear2 : AnimationSprite
 {
+
     /*-------flaot-------------*/
     float initialDropSpeed;
     float dropSpeed = 0.2f;
@@ -22,12 +24,11 @@ public class Bear2 : AnimationSprite
     bool isJumping = false;
     bool isDead = false;
     bool isWalking = false;
-    public Bear2() : base("bunny_animation_copy_to_be_save_copy.png", 8, 5)
+    bool isPickedup = false;
+    public Bear2(TiledObject obj = null) : base("bunny_animation_copy_to_be_save_copy.png", 8, 5)
     {
-        y = 220;
-        x = 300;
-        width = 128;
-        height = 124;
+
+
 
     }
     void Update()
@@ -41,10 +42,28 @@ public class Bear2 : AnimationSprite
             ShotAnimation();
             JumpAnimation();
             WalkAnimation();
+            PickUpAnimation();
 
         }
         YMovement();
         Death();
+    }
+    void PickUpAnimation()
+    {
+        if (isPickedup)
+        {
+            isIdle = false;
+            isWalking = false;
+            isShooting = false;
+            isJumping = false;
+            SetCycle(22, 6);
+            Animate(0.15f);
+            // Console.WriteLine(currentFrame);
+            if (currentFrame == 27)
+            {
+                isPickedup = false;
+            }
+        }
     }
     void WalkAnimation()
     {
@@ -91,7 +110,6 @@ public class Bear2 : AnimationSprite
             isShooting = false;
             SetCycle(4, 5);
             Animate(0.04f);
-            Console.WriteLine(currentFrame);
             if (currentFrame == 8)
             {
                 isJumping = false;
@@ -102,8 +120,8 @@ public class Bear2 : AnimationSprite
     void XMovement()
     {
         float oldx = x;
-        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); isWalking = true; }
-        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); Move(-movementXSpeed, 0); isWalking = true; }
+        if (Input.GetKey(Key.L)) { this.Mirror(false, false); this.Move(movementXSpeed, 0); if (isPickedup == false) { isWalking = true; } }
+        else if (Input.GetKey(Key.J)) { this.Mirror(true, false); Move(-movementXSpeed, 0); if (isPickedup == false) { isWalking = true; } }
         else { isIdle = true; isWalking = false; }
         GameObject[] colied = GetCollisions();
         for (int i = 0; i < colied.Length; i++)
@@ -127,7 +145,7 @@ public class Bear2 : AnimationSprite
             {
                 initialDropSpeed = 0;
                 y = oldy;
-                if (Input.GetKey(Key.I) && !isDead)
+                if (Input.GetKeyDown(Key.I) && !isDead)
                 {
                     this.MoveUntilCollision(0, initialDropSpeed -= jumpSpeed);
                     isJumping = true;
@@ -180,7 +198,8 @@ public class Bear2 : AnimationSprite
             PickupCoin pickup = OtherThanBear as PickupCoin;
             pickup.HasPickedUp = true;
             coinAmount++;
-        }   
+            isPickedup = true;
+        }
     }
     void RecovorMovement()
     {
