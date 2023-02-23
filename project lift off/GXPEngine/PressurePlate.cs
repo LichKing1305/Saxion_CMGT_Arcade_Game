@@ -12,6 +12,7 @@ public class PressurePlate : Sprite
     string menu = "menu.tmx";
     public PressurePlate(/*Bear bear,Bear2 bear2, int x, int y, string map,*/ TiledObject obj =null) : base("colors.png")
     {
+
         nextLevel = obj.GetStringProperty("nextLevel", "menu");
         collider.isTrigger = true;
         //_bear = bear;
@@ -19,6 +20,11 @@ public class PressurePlate : Sprite
        // _map = map;
         SetXY(x, y);
         _isActivated = false;
+        if(obj != null)
+        {
+            nextLevel = obj.GetStringProperty("nextLevel", null);
+        }
+
     }
 
     void Update()
@@ -38,18 +44,15 @@ public class PressurePlate : Sprite
     public void Activate()
     {
         Console.WriteLine("Level switch");
-        if (!_isActivated)
+        if (_isActivated)
         {
-            /*Level level = new Level(_map);
-            _isActivated = true;
-            level.LoadLevel();*/
             ((MyGame)game).LoadLevel(nextLevel + " .tmx");
         }
     }
 
     void Deactivate()
     {
-        if (_isActivated)
+        if (!_isActivated)
         {
             _isActivated = false;
         }

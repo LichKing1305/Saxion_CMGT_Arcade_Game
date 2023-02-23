@@ -86,7 +86,7 @@ public class MyGame : Game
 
     public void LoadLevel(string filename)
     {
-        nextLevel = filename ;
+        nextLevel = filename;
     }
     void DestroyAll()
     {
