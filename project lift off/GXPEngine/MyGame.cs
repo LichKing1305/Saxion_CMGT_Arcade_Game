@@ -36,7 +36,15 @@ public class MyGame : Game
         /*  endscreen = new EndScreen(_endscreen);
           AddChild(endscreen);*/
     }
-
+    static void Main()     // Main() is the first method that's called when the program is run
+    {
+        new MyGame().Start();    // Create a "MyGame" and start it
+    }
+    void Update()
+    {
+        BackgroundMusic();
+        CheckLoadLevel();
+    }
     void KeyReleased()
     {
         Console.WriteLine("keyRelease");
@@ -97,26 +105,15 @@ public class MyGame : Game
         }
     }
     public void CheckLoadLevel()
-    {/*
-        if (levelToLoad != null)
-        {
-            DestroyAll();
-            AddChild(new Level(levelToLoad));
-            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-                AddChild(new HUD(level));
-            levelToLoad = null;
-        }
-        */
+    {
         if (nextLevel != null)
         {
-            //Console.WriteLine("Destroying current level" );
-            //RemoveChild( level );
             DestroyAll();
             AddChild( level = new Level( nextLevel ) );
-            //if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-            //    AddChild(new HUD(level));
+            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
+            AddChild(new HUD(level));
             Console.WriteLine("Loaded new level");
-            nextLevel = null;
+            nextLevel = "levlemap.tmx";
         }
     }
 
@@ -141,30 +138,5 @@ public class MyGame : Game
     {
         _musicChannel.Stop();
     }
-    void Update()
-    {
-        /*if (Input.GetKeyDown(Key.R))
-        {
-            ResetLevel();
-        }*/
-        BackgroundMusic();
-        CheckLoadLevel();
-
-    }
-    static void Main()     // Main() is the first method that's called when the program is run
-    {
-        new MyGame().Start();    // Create a "MyGame" and start it
-    }
-
-    /*void ResetLevel()
-    {
-        if (_level != null)
-        {
-            RemoveChild(_level);
-            _level = null;
-        }
-        _level = new Level(map);
-        // AddChild(_level);
-    }*/
 }
 
