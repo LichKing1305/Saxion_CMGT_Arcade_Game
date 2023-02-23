@@ -8,7 +8,12 @@ public class MyGame : Game
     string currentLevel;
     string levelToLoad;
     Level level;
-    Menu _menu;
+    private Menu _menu;
+    Bear bear;
+    Bear2 bear2;
+    //EndScreen endscreen;
+    HUD hud;
+    PressurePlate plate;
     string map = "levlemap.tmx";
     string endscreen = "endscreen.tmx";
     string menu = "menu.tmx";
@@ -18,32 +23,20 @@ public class MyGame : Game
 
     public MyGame() : base(1920, 1080, false, false, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
     {
-        _menu = new Menu(menu);
-        AddChild(_menu);
+        level = new Level(menu);
+        AddChild(level);
+        //hud = new HUD(level);
+        //AddChild(hud);
+        //bear2 = new Bear2();
+        //AddChild(bear2);
+        // plate = new PressurePlate(bear2, 100, 600, map);
+        // AddChild(plate);
         startMusic();
-        nextLevel = null;     
+        nextLevel = null;
+        /*  endscreen = new EndScreen(_endscreen);
+          AddChild(endscreen);*/
     }
-<<<<<<< HEAD
-    void Update()
-    {
-        /*if (Input.GetKeyDown(Key.R))
-        {
-            ResetLevel();
-        }*/
-        BackgroundMusic();
-        CheckLoadLevel();
 
-=======
-    static void Main()     // Main() is the first method that's called when the program is run
-    {
-        new MyGame().Start();    // Create a "MyGame" and start it
-    }
-    void Update()
-    {
-        BackgroundMusic();
-        CheckLoadLevel();
->>>>>>> 6af818e3e9cb347314136e768c11a9c0896a9ccb
-    }
     void KeyReleased()
     {
         Console.WriteLine("keyRelease");
@@ -104,21 +97,26 @@ public class MyGame : Game
         }
     }
     public void CheckLoadLevel()
-    {
-        if (nextLevel != null)
+    {/*
+        if (levelToLoad != null)
         {
             DestroyAll();
-<<<<<<< HEAD
-            AddChild(level = new Level("levlemap.tmx"));
+            AddChild(new Level(levelToLoad));
+            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
+                AddChild(new HUD(level));
+            levelToLoad = null;
+        }
+        */
+        if (nextLevel != null)
+        {
+            //Console.WriteLine("Destroying current level" );
+            //RemoveChild( level );
+            DestroyAll();
+            AddChild( level = new Level( nextLevel ) );
             //if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
             //    AddChild(new HUD(level));
-=======
-            AddChild( level = new Level( nextLevel ) );
-            if (currentLevel != "menu.tmx" && currentLevel != "endscreen.tmx")
-            AddChild(new HUD(level));
->>>>>>> 6af818e3e9cb347314136e768c11a9c0896a9ccb
             Console.WriteLine("Loaded new level");
-            nextLevel = "levlemap.tmx";
+            nextLevel = null;
         }
     }
 
@@ -143,13 +141,30 @@ public class MyGame : Game
     {
         _musicChannel.Stop();
     }
-<<<<<<< HEAD
-   
+    void Update()
+    {
+        /*if (Input.GetKeyDown(Key.R))
+        {
+            ResetLevel();
+        }*/
+        BackgroundMusic();
+        CheckLoadLevel();
+
+    }
     static void Main()     // Main() is the first method that's called when the program is run
     {
         new MyGame().Start();    // Create a "MyGame" and start it
     }
-=======
->>>>>>> 6af818e3e9cb347314136e768c11a9c0896a9ccb
+
+    /*void ResetLevel()
+    {
+        if (_level != null)
+        {
+            RemoveChild(_level);
+            _level = null;
+        }
+        _level = new Level(map);
+        // AddChild(_level);
+    }*/
 }
 
