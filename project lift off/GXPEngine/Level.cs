@@ -23,6 +23,7 @@ public class Level : GameObject
     public string map = "levlemap.tmx";
     public Level(string filename)
     {
+        
         Console.WriteLine( " Loading level {0}", filename );
         loader = new TiledLoader(filename);
         createlevel();
@@ -31,7 +32,9 @@ public class Level : GameObject
         claw = new Claw();
         timer = new Timer(TimerCallback, null, 0, 1000);
         _score = 240;
-       
+        bear2 = new Bear2();
+        bear = new Bear();
+
     }
     public int GetScore()
     {
@@ -62,14 +65,15 @@ public class Level : GameObject
 
     void Update()
     {
-        SpawnCoin();
-        //   SpawnBear2();
+          SpawnCoin();
+      //    SpawnBear2();
         //  EndLevel();
-       /* if (_score <= 0)
-        {
-            _score = 0;
-            _gameOver = true;
-        }*/
+        /* if (_score <= 0)
+         {
+             _score = 0;
+             _gameOver = true;
+         }*/
+        Console.WriteLine(bear2.health + ":" + bear.health);
         if (bear2.health < 1 && bear.health < 1)
         {
             _score = lastScore;
@@ -95,8 +99,7 @@ public class Level : GameObject
             loader.LoadObjectGroups();
             loader.rootObject = this;
             {
-                bear2 = new Bear2();
-                bear = new Bear();
+                
             }
 
        // }
@@ -140,7 +143,7 @@ public class Level : GameObject
     {
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
-        else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
+       // else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
     }
     void ResetLevel()
     {
