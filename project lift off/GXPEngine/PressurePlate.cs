@@ -10,7 +10,7 @@ public class PressurePlate : Sprite
     private bool _isActivated;
     string nextLevel;
     string menu = "menu.tmx";
-    public PressurePlate(/*Bear bear,Bear2 bear2, int x, int y, string map,*/ TiledObject obj =null) : base("colors.png")
+    public PressurePlate(/*Bear bear,Bear2 bear2, int x, int y, string map,*/ TiledObject obj =null) : base("plate.png")
     {
 
         

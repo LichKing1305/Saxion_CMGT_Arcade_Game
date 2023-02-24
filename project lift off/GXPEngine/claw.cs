@@ -13,9 +13,9 @@ public class Claw : AnimationSprite
     {
         if (obj != null)
         {
-            dropSpeed = obj.GetFloatProperty("dropSpeed", 150f);
-            goUpSpeed = obj.GetFloatProperty("goUpSpeed", 3f);
-            movementSpeed = obj.GetFloatProperty("movementSpeed", 1.5f);
+            dropSpeed = obj.GetFloatProperty("dropSpeed", 50f);
+            goUpSpeed = obj.GetFloatProperty("goUpSpeed", 6f);
+            movementSpeed = obj.GetFloatProperty("movementSpeed", 3f);
         }
     }
 
