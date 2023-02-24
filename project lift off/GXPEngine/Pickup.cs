@@ -21,7 +21,7 @@ class PickupCoin : AnimationSprite
 
     void Update()
     {
-
+        
         //  Console.WriteLine(Time.time+":time"+timeFollower+":timeFollower");
         // SpawnCoin();
         Console.WriteLine(vy);
@@ -33,22 +33,28 @@ class PickupCoin : AnimationSprite
     {
         float oldy;
         oldy = 812;
+        
         if (!isYBounce)
         {
             y += vy;
         }
-        else
+        if (y < 0)
         {
-            y -= vy;
-            if (y <= oldy )
-            {
-                isYBounce = false;
-                Console.WriteLine("the one with oldy");
-            }
-            
-           
 
+            isYBounce = false;
         }
+        /*   else
+           {
+               y -= vy;
+               if (y <= oldy )
+               {
+                   isYBounce = false;
+                   Console.WriteLine("the one with oldy");
+               }
+
+
+
+           }*/
     }
     void IdleCoin()
     {
@@ -65,6 +71,7 @@ class PickupCoin : AnimationSprite
         if (otherthanpickup is Solid)
         {
             isYBounce = true;
+            Console.WriteLine("solid coin");
         }
         /*  ------------------------prob will use it later---------------------
          *  if (otherthanpickup is Solid)

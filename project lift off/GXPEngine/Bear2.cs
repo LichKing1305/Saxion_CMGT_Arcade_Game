@@ -28,7 +28,10 @@ public class Bear2 : AnimationSprite
     public Bear2(TiledObject obj = null) : base("bunny_animation_copy_to_be_save_copy.png", 8, 5)
     {
 
-
+        width = 124;
+        height = 128;
+        x = 1800;
+        y = 1060;
 
     }
     void Update()
@@ -157,22 +160,26 @@ public class Bear2 : AnimationSprite
     void Shot()
     {
         // Console.WriteLine(x + ":" + y + ":frozeMovement:" + frozeMovement);
-        if (Input.GetKeyDown(Key.P) && coinAmount >= 1)
-        {
-            isShooting = true;
-            Screw screw = new Screw(_mirrorX ? -5 : 5);
-            screw.SetXY(x + (_mirrorX ? -2 : 2) * (width / 2), y + (height / 2));
-            parent.AddChild(screw);
-            Console.WriteLine(screw.x + ":" + screw.y);
-            coinAmount--;
+       
+            if (Input.GetKeyDown(Key.P) && coinAmount >= 1)
+            {
+                isShooting = true;
+                Screw screw = new Screw(_mirrorX ? -25 : 25);
+                screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height / 2));
+                parent.AddChild(screw);
+                coinAmount--;
+                Console.WriteLine("shoting");
+               // SetCycle(28, 5); Animate(0.5f);
+            }
 
-        }
+
+        
     }
 
     /*------------------------ CODE FOR DEATH ---------------------------------------------------*/
     void Death()
     {
-        Console.WriteLine(health);
+       // Console.WriteLine(health);
         if (health < 1)
         { //Destroy();
             isIdle = false;
