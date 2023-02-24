@@ -165,7 +165,7 @@ public class Bear2 : AnimationSprite
         {
             isShooting = true;
             Screw screw = new Screw(_mirrorX ? -25 : 25);
-            screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height / 2));
+            screw.SetXY(x + (_mirrorX ? -3 : 2) * (width / 2), y - (height/4f));
             parent.AddChild(screw);
             coinAmount--;
             Console.WriteLine("shoting");

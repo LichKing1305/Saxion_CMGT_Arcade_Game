@@ -16,7 +16,7 @@ public class MyGame : Game
     float _previousVolume;
     SoundChannel _musicChannel;
 
-    public MyGame() : base(1920, 1080, false, false, -1, -1, false)     // Create a window that's 800x600 and NOT fullscreen
+    public MyGame() : base(1920, 1080, false, false, 1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
     {
         _menu = new Menu(menu);
         AddChild(_menu);
