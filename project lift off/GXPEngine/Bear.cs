@@ -8,11 +8,11 @@ public class Bear : AnimationSprite
    
     /*----------floats---------*/
     float initialDropSpeed = 0;
-    float jumpSpeed;
-    float movementXSpeed;
+    float jumpSpeed= 10f;
+    float movementXSpeed= 3.5f;
     float initialMovementXSpeed;
     float movementXSpeedDecrease = 0.5f;
-    float dropSpeed;
+    float dropSpeed = 0.2f;
     /*---------int---------*/
     public int health = 1;
     const int cooldown = 2000;
@@ -31,25 +31,27 @@ public class Bear : AnimationSprite
 
 
     /*-------------------------------------CONSTRUCTER------------------------------------------------------------*/
-    public Bear(TiledObject obj = null) : base("bear_sprite_retry_retry.png", 8, 5)
+    public Bear() : base("bear_sprite_retry_retry.png", 8, 5)
     {
         // level = new Level(map);
         //filename = level._filename;
         //cols = _cols;
         //rows = _rows;
+        
+        width = 124;
+        height = 128;
         x = 1000;
-
-        y = game.height - height;
+        y = game.height - height - 200;
         initialMovementXSpeed = movementXSpeed;
         bearwalk = new Sound("bear_walk_sound.wav", true, false);
         //pickup = new PickupCoin();
-        if (obj != null)
+      /*  if (obj != null)
         {
             dropSpeed = obj.GetFloatProperty("dropSpeed", 0.2f);
             jumpSpeed = obj.GetFloatProperty("jumpSpeed", 10f);
             movementXSpeed = obj.GetFloatProperty("movementXSpeed", 3.5f);
             //health = obj.GetIntProperty("health", 1);
-        }
+        }*/
     }
     
     void Update()

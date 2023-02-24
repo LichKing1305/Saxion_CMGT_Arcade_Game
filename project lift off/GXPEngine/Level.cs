@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using TiledMapParser;
 public class Level : GameObject
-{   
+{
     TiledLoader loader;
     private Level _level;
 
@@ -21,19 +21,27 @@ public class Level : GameObject
     public string _filename;
     public int _cols;
     public int _rows;
+    //  int bear1Health;
+    // int bear2Health;
     public string map = "levlemap.tmx";
     public Level(string filename)
     {
-        Console.WriteLine( " Loading level {0}", filename );
+
+        Console.WriteLine(" Loading level {0}", filename);
         loader = new TiledLoader(filename);
         createlevel();
         pickup = new PickupCoin();
         AddChild(pickup);
         claw = new Claw();
-        timer = new Timer(TimerCallback, null, 0, 1000);
+       
         _score = 240;
         bear2 = new Bear2();
+        AddChild(bear2);
         bear = new Bear();
+        AddChild(bear);
+        timer = new Timer(TimerCallback, null, 0, 1000);
+        //  bear1Health = bear.health;
+        // bear2Health = bear2.health;
         hud = new HUD(this);
         AddChild(hud);
     }
@@ -50,12 +58,12 @@ public class Level : GameObject
             _score = 0;
             _gameOver = true;
         }
-        if (bear2.health < 1 &&  bear.health<1)
+        if (bear.health < 1 &&bear2.health < 1)
         {
             _score = lastScore;
             _gameOver = true;
             Console.WriteLine("game over");
-            
+
         }
         else
         {
@@ -66,44 +74,44 @@ public class Level : GameObject
 
     void Update()
     {
-          SpawnCoin();
-      //    SpawnBear2();
+        SpawnCoin();
+        //    SpawnBear2();
         //  EndLevel();
         /* if (_score <= 0)
          {
              _score = 0;
              _gameOver = true;
          }*/
-        Console.WriteLine(bear2.health + ":" + bear.health);
-        if (bear2.health < 1 && bear.health < 1)
-        {
-            _score = lastScore;
-            _gameOver = true;
-         //   Console.WriteLine("game over");
+        /*  Console.WriteLine(bear1Health + ":" + bear2Health);
+          if  (bear2Health < 1 && bear2Health < 1)
+              {
+              _score = lastScore;
+              _gameOver = true;
+           //   Console.WriteLine("game over");
 
-        }
-        else
-        {
-            lastScore = _score;
-        }
+          }
+          else
+          {
+              lastScore = _score;
+          }*/
     }
 
     void createlevel()
     {
-      //  if (!_gameOver)
+        //  if (!_gameOver)
         //{
-            loader.addColliders = false;
-          loader.LoadImageLayers();
-            loader.addColliders = false;
-            loader.LoadTileLayers();
-            loader.autoInstance = true;
-            loader.LoadObjectGroups();
-            loader.rootObject = this;
-            {
-                
-            }
+        loader.addColliders = false;
+        loader.LoadImageLayers();
+        loader.addColliders = false;
+        loader.LoadTileLayers();
+        loader.autoInstance = true;
+        loader.LoadObjectGroups();
+        loader.rootObject = this;
+        {
 
-       // }
+        }
+
+        // }
 
     }
     void SpawnCoin()
@@ -124,7 +132,7 @@ public class Level : GameObject
                     {
                         pickup.x = Utils.Random(64, game.width - 64);
                         pickup.y = Utils.Random(-50, -20);
-                     
+
                     }
                 }
             }
@@ -135,7 +143,7 @@ public class Level : GameObject
             // timeFollower = Time.time;
             // pickup.HasPickedUp = false;
             this.RemoveChild(pickup);
-          
+
             //   pickup= null;
 
         }
@@ -144,7 +152,7 @@ public class Level : GameObject
     {
         if (Input.GetKeyDown(Key.ENTER)) { bear2.Player2Switch = !bear2.Player2Switch; }
         if (bear2.Player2Switch == true) { AddChild(bear2); }
-       // else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
+        // else if (!bear2.Player2Switch) { this.RemoveChild(bear2); }
     }
     void ResetLevel()
     {
