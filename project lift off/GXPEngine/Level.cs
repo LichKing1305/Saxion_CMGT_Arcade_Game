@@ -13,6 +13,7 @@ public class Level : GameObject
     Bear2 bear2;
     public int _score;
     Timer timer;
+    HUD hud;
     bool _gameOver = false;
     const int coolDown = 10000;
     int timeFollower = 0;
@@ -23,7 +24,6 @@ public class Level : GameObject
     public string map = "levlemap.tmx";
     public Level(string filename)
     {
-        
         Console.WriteLine( " Loading level {0}", filename );
         loader = new TiledLoader(filename);
         createlevel();
@@ -34,7 +34,8 @@ public class Level : GameObject
         _score = 240;
         bear2 = new Bear2();
         bear = new Bear();
-
+        hud = new HUD(this);
+        AddChild(hud);
     }
     public int GetScore()
     {

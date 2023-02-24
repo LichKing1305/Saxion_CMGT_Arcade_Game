@@ -10,9 +10,9 @@ namespace GXPEngine
 
     public class HUD : Canvas
     {
-        Font myFont = Utils.LoadFont("DS-DIGI.TTF", 12.0f, FontStyle.Regular);
+        Font myFont = Utils.LoadFont("DS-DIGI.TTF", 40.0f, FontStyle.Regular);
         private Level level;
-        public HUD(Level _level) : base(256, 128, false)
+        public HUD(Level _level) : base(350, 128, false)
         {
             level = _level;
         }
@@ -20,7 +20,7 @@ namespace GXPEngine
         void Update()
         {
             graphics.Clear(Color.Empty);
-            graphics.DrawString("Time: " + level.GetScore(), myFont, Brushes.Red, 75, 0);
+            graphics.DrawString("Time: " + level.GetScore(), myFont, Brushes.Red, 125, 0);
         }
     }
 }
