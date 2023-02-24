@@ -44,12 +44,12 @@ public class Claw : AnimationSprite
 
     void XMovement()
     {
-        if (Input.GetKey(Key.RIGHT))
+        if (Input.GetKey(Key.C))
         {
             MoveUntilCollision(movementSpeed, 0);
 
         }
-        else if (Input.GetKey(Key.LEFT))
+        else if (Input.GetKey(Key.Z))
         {
             MoveUntilCollision(-movementSpeed, 0);
 
@@ -58,7 +58,7 @@ public class Claw : AnimationSprite
     }
     void YMovement()
     {
-        if (Input.GetKey(Key.DOWN) && !dropSwitch)
+        if (Input.GetKey(Key.V) && !dropSwitch)
         {
             y += dropSpeed;
         }
