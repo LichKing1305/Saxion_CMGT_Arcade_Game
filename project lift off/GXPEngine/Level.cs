@@ -37,7 +37,7 @@ public class Level : GameObject
     {
         return _score;
     }
-    private void TimerCallback(Object o)
+    void TimerCallback(Object o)
     {
         _score = _score - 1;
 
@@ -50,6 +50,8 @@ public class Level : GameObject
         {
             _score = lastScore;
             _gameOver = true;
+            Console.WriteLine("game over");
+            
         }
         else
         {
@@ -61,8 +63,24 @@ public class Level : GameObject
     void Update()
     {
         SpawnCoin();
-     //   SpawnBear2();
-      //  EndLevel();
+        //   SpawnBear2();
+        //  EndLevel();
+       /* if (_score <= 0)
+        {
+            _score = 0;
+            _gameOver = true;
+        }*/
+        if (bear2.health < 1 && bear.health < 1)
+        {
+            _score = lastScore;
+            _gameOver = true;
+         //   Console.WriteLine("game over");
+
+        }
+        else
+        {
+            lastScore = _score;
+        }
     }
 
     void createlevel()
@@ -88,22 +106,21 @@ public class Level : GameObject
     {
         if (Time.time > timeFollower + coolDown)
         {
-            Console.WriteLine("spawn");
-
             timeFollower = Time.time;
             if (pickup.HasPickedUp)
             {
                 AddChild(pickup);
                 pickup.HasPickedUp = false;
-                pickup.x = Utils.Random(64, (game.width - (128 + pickup.width)));
-                pickup.y = Utils.Random(400, (game.height - (128 + pickup.height)));
+                pickup.x = Utils.Random(64, game.width - 64);
+                pickup.y = Utils.Random(-50, -20);
                 GameObject[] colied = GetCollisions();
                 for (int i = 0; i < colied.Length; i++)
                 {
                     if (colied[i] is Solid || colied[i] is Bear2)
                     {
-                        pickup.x = Utils.Random(64, (game.width - (128 + pickup.width)));
-                        pickup.y = Utils.Random(400, (game.height - (128 + pickup.height)));
+                        pickup.x = Utils.Random(64, game.width - 64);
+                        pickup.y = Utils.Random(-50, -20);
+                     
                     }
                 }
             }
